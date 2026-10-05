@@ -1,0 +1,23 @@
+HOME CREDIT DEFAULT RISK - PREPROCESSING SUMMARY
+============================================================
+Raw feature table        : 356,255 rows x 204 features
+Train / test rows        : 307,511 / 48,744
+Transformed feature count: 259
+Default rate (train)     : 8.07%
+scale_pos_weight (XGB/LGBM): 11.387
+class_weight (LR/RF)     : {0: 0.5439091430067283, 1: 6.193575025176234}
+
+Final transformed feature count: 259
+
+Top 10 transformed features by |Pearson corr| with TARGET:
+feature                                         |corr|
+num__EXT_SOURCES_MEAN                           0.2220
+num__EXT_SOURCES_MAX                            0.1968
+num__EXT_SOURCES_MIN                            0.1852
+num__EXT_SOURCES_WEIGHTED                       0.1793
+num__EXT_SOURCES_PROD_2_3                       0.1756
+num__EXT_SOURCES_SUM                            0.1733
+num__EXT_SOURCE_2                               0.1603
+num__EXT_SOURCE_3                               0.1559
+num__EXT_SOURCES_2_SQ                           0.1495
+num__EXT_SOURCES_PROD_1_2_3                     0.1095

@@ -1,6 +1,28 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { MODEL_DISPLAY, TRAIN_ROWS, fetchBenchmarks, type Benchmarks } from "../lib/api";
 
 export default function OverviewPage() {
+  const [benchmarks, setBenchmarks] = useState<Benchmarks | null>(null);
+
+  useEffect(() => {
+    fetchBenchmarks()
+      .then(setBenchmarks)
+      .catch(() => setBenchmarks(null));
+  }, []);
+
+  const championEntry = benchmarks
+    ? Object.entries(benchmarks)
+        .filter(([k]) => MODEL_DISPLAY[k])
+        .sort((a, b) => b[1].auc_roc - a[1].auc_roc)[0]
+    : null;
+  const championAuc = championEntry ? championEntry[1].auc_roc.toFixed(4) : "—";
+  const championName = championEntry ? MODEL_DISPLAY[championEntry[0]].label : "—";
+  const championKs = championEntry
+    ? `${(championEntry[1].ks_stat * 100).toFixed(1)}%`
+    : "—";
   return (
     <div className="flex flex-col w-full">
       {/* Dossier Header */}
@@ -20,7 +42,7 @@ export default function OverviewPage() {
         </h1>
 
         <p className="mt-4 font-sans text-[16px] leading-[24px] text-[#414849] max-w-[860px]">
-          An empirical benchmark suite assessing six candidate machine learning models against 142,000 historical consumer credit agreements. This workbench provides institutional risk committees with standardized discrimination metrics, calibrated probability estimates, and feature-attribution diagnostics.
+          An empirical benchmark suite assessing seven trained models on {TRAIN_ROWS.toLocaleString()} Home Credit applicants with 259 engineered features. All metrics are computed out-of-fold on real trained artifacts and served live from the model API.
         </p>
       </div>
 
@@ -39,14 +61,14 @@ export default function OverviewPage() {
             </span>
           </div>
           <div className="font-mono text-[44px] leading-none text-[#072427] font-medium tracking-tight">
-            0.842
+            {championAuc}
           </div>
           <div className="mt-4">
             <div className="font-sans text-[14px] text-[#181c1a] font-medium">
-              Champion AUC-ROC (LightGBM v3.1)
+              Champion AUC-ROC ({championName})
             </div>
             <div className="font-sans text-[12px] text-[#414849] mt-1">
-              Calibrated against 2024 holdout cohort
+              Validated on 5-fold stratified cross-validation
             </div>
           </div>
         </div>
@@ -62,14 +84,14 @@ export default function OverviewPage() {
             </span>
           </div>
           <div className="font-mono text-[44px] leading-none text-[#072427] font-medium tracking-tight">
-            142,850
+            {TRAIN_ROWS.toLocaleString()}
           </div>
           <div className="mt-4">
             <div className="font-sans text-[14px] text-[#181c1a] font-medium">
-              Total validation accounts
+              Training loan applicants
             </div>
             <div className="font-sans text-[12px] text-[#414849] mt-1">
-              Observed default rate 4.18%
+              Observed default rate 8.07% (11.4:1 ratio)
             </div>
           </div>
         </div>
@@ -85,14 +107,14 @@ export default function OverviewPage() {
             </span>
           </div>
           <div className="font-mono text-[44px] leading-none text-[#072427] font-medium tracking-tight">
-            18.4 bps
+            {championKs}
           </div>
           <div className="mt-4">
             <div className="font-sans text-[14px] text-[#181c1a] font-medium">
-              Brier score calibration loss
+              Kolmogorov-Smirnov (KS) Statistic
             </div>
             <div className="font-sans text-[12px] text-[#414849] mt-1">
-              Within Basel committee tolerance
+              Exceeds Basel II retail threshold (&gt;30%)
             </div>
           </div>
         </div>

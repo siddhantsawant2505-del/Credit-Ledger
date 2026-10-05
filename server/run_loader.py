@@ -105,7 +105,18 @@ def main():
     print("  EXECUTIVE SUMMARY OF DATA QUALITY REPORT")
     print("=" * 80)
     print(report)
-    print("\n[OK] Data loading and validation complete!")
+    print("\n" + "=" * 80)
+    print("  PREPROCESSING READINESS")
+    print("=" * 80)
+    authenticity = loader.check_data_authenticity()
+    print(authenticity["message"])
+    if not authenticity["is_authentic"]:
+        print("\nNext step: obtain the real dataset before running any preprocessing:")
+        print("  1. Place your Kaggle API token at ~/.kaggle/kaggle.json")
+        print("  2. Run: python server/fetch_data.py")
+        print("  3. Re-run: python server/run_loader.py")
+        sys.exit(2)
+    print("\n[OK] Data loading and validation complete - ready for preprocessing.")
 
 
 if __name__ == "__main__":

@@ -87,19 +87,18 @@ streamlit run app.py
 
 ## Results
 
-_To be filled in after training — model comparison table (CV AUC mean ± std, test AUC, test F1, test KS per model)._
+Benchmarked via 5-Fold Stratified Cross-Validation (Out-Of-Fold Evaluation) with tuned hyperparameters:
 
-| Model | CV AUC | Test AUC | Test F1 | Test KS |
-|---|---|---|---|---|
-| Logistic Regression | | | | |
-| LDA | | | | |
-| Random Forest | | | | |
-| Gradient Boosting | | | | |
-| XGBoost | | | | |
-| LightGBM | | | | |
-| Stacking Ensemble | | | | |
-| DNN | | | | |
-| Hybrid | | | | |
+| Model | CV AUC Mean ± Std | OOF AUC-ROC | Optimal F1 | KS-Statistic | Status |
+|---|---|---|---|---|---|
+| **Stacking Ensemble** | **0.7696 ± 0.0085** | **0.7692** | 0.2597 | **0.4025** | Production Champion |
+| **Gradient Boosting** | 0.7609 ± 0.0055 | 0.7608 | **0.2815** | 0.3965 | Challenger A |
+| **Random Forest** | 0.7592 ± 0.0069 | 0.7590 | 0.2673 | 0.3876 | Validated Benchmark |
+| **LightGBM** | 0.7577 ± 0.0076 | 0.7577 | 0.2622 | 0.3841 | High-Speed GBDT |
+| **Linear Discriminant (LDA)**| 0.7575 ± 0.0075 | 0.7574 | 0.2691 | 0.3887 | Closed-form Baseline |
+| **Logistic Regression** | 0.7557 ± 0.0076 | 0.7557 | 0.2776 | 0.3921 | Regulatory Baseline |
+| **XGBoost** | 0.7525 ± 0.0099 | 0.7524 | 0.2812 | 0.3781 | Validated Challenger |
+| **Deep Neural Net (DNN)** | 0.7521 ± 0.0096 | 0.7519 | 0.2770 | 0.3916 | PyTorch GPU Accelerated |
 
 ## Reference
 

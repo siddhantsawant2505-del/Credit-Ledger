@@ -1,258 +1,237 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import {
+  ApiUnavailableError,
+  fetchExplainability,
+  type ExplainabilityPayload,
+} from "../../lib/api";
+
+// Human-readable labels and plain-English explanations for known features
+const FEATURE_META: Record<string, { label: string; plain: string }> = {
+  EXT_SOURCES_MEAN: {
+    label: "External Credit Score (Average)",
+    plain: "Average of three external credit bureau scores. The single most predictive signal — higher is better. Think of it like a combined credit score from Experian, Equifax, and TransUnion.",
+  },
+  EXT_SOURCE_2: {
+    label: "External Credit Score 2",
+    plain: "One of three credit bureau assessments. Reflects repayment history across existing loans and credit lines.",
+  },
+  EXT_SOURCE_3: {
+    label: "External Credit Score 3",
+    plain: "A second credit bureau signal. Strongly correlated with likelihood of default — applicants with low scores here are 3–4× more likely to default.",
+  },
+  EXT_SOURCE_1: {
+    label: "External Credit Score 1",
+    plain: "Third external bureau score. Slightly less correlated than sources 2 and 3, but still among the top predictors.",
+  },
+  EXT_SOURCES_WEIGHTED: {
+    label: "Weighted Credit Score",
+    plain: "A single combined score giving more weight to the most predictive bureau sources. Engineered from all three bureau signals.",
+  },
+  EXT_SOURCES_PROD_1_2_3: {
+    label: "Credit Score Interaction",
+    plain: "The product of all three bureau scores. Captures cases where all three are simultaneously low — which is far riskier than any one being low alone.",
+  },
+  DAYS_BIRTH: {
+    label: "Applicant Age",
+    plain: "Older applicants statistically default less often. Younger applicants (especially under 25) show elevated risk — likely due to shorter credit histories.",
+  },
+  DAYS_EMPLOYED: {
+    label: "Employment Duration",
+    plain: "How long the applicant has been continuously employed. Longer tenures signal stability. Short durations (under 1 year) are a risk flag.",
+  },
+  AMT_CREDIT: {
+    label: "Loan Amount Requested",
+    plain: "The total credit amount being applied for. Larger loans carry more exposure, especially when income or external scores are low.",
+  },
+  AMT_ANNUITY: {
+    label: "Monthly Repayment Amount",
+    plain: "The monthly instalment for the loan. High annuity relative to income is a strong indicator of repayment stress.",
+  },
+  AMT_INCOME_TOTAL: {
+    label: "Annual Income",
+    plain: "Total declared annual income. Higher income generally lowers default risk, though it must be evaluated against the loan size.",
+  },
+  PAYMENT_RATE: {
+    label: "Payment-to-Loan Ratio",
+    plain: "Monthly repayment divided by total loan amount. A high ratio means the applicant repays the loan faster — lower default risk. Engineered feature.",
+  },
+  DTI_RATIO: {
+    label: "Debt-to-Income Ratio",
+    plain: "Loan annuity as a fraction of income. Values above 40% are a recognised risk flag in credit underwriting globally.",
+  },
+  EMPLOYED_TO_AGE_RATIO: {
+    label: "Career Stability Index",
+    plain: "Proportion of working life spent in current employment. A value near 1.0 means continuous employment — very low risk.",
+  },
+  INCOME_PER_PERSON: {
+    label: "Income per Family Member",
+    plain: "Household income divided by family size. Accounts for financial obligations to dependants — lower values increase repayment stress.",
+  },
+};
+
+function getFeatureMeta(rawName: string) {
+  if (FEATURE_META[rawName]) return FEATURE_META[rawName];
+  // Fallback: clean up raw name into readable form
+  const label = rawName
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return {
+    label,
+    plain: "Derived from the Home Credit application data. Contributes to the model's prediction of repayment likelihood.",
+  };
+}
+
 export default function ExplainabilityPage() {
-  const shapFeatures = [
-    {
-      name: "Debt-to-income ratio",
-      value: "28.4%",
-      delta: -0.042,
-      deltaText: "-0.042",
-      type: "decrease",
-      widthPct: 42,
-      baseline: "35.0% cohort avg",
-      directionNote: "Sub-30% DTI reduces default risk by 4.2 bps",
-    },
-    {
-      name: "Delinquencies last 24 months",
-      value: "0",
-      delta: -0.038,
-      deltaText: "-0.038",
-      type: "decrease",
-      widthPct: 38,
-      baseline: "0.42 prior delinq",
-      directionNote: "Clean 24m payment history reduces risk",
-    },
-    {
-      name: "Employment tenure",
-      value: "7.5 years",
-      delta: -0.026,
-      deltaText: "-0.026",
-      type: "decrease",
-      widthPct: 26,
-      baseline: "3.2 years avg",
-      directionNote: "Stable long-term employment tenure",
-    },
-    {
-      name: "Home ownership status",
-      value: "Mortgage",
-      delta: -0.015,
-      deltaText: "-0.015",
-      type: "decrease",
-      widthPct: 15,
-      baseline: "Tenant lease",
-      directionNote: "Mortgage tenure demonstrates equity stability",
-    },
-    {
-      name: "Revolving credit utilization",
-      value: "41.2%",
-      delta: 0.031,
-      deltaText: "+0.031",
-      type: "increase",
-      widthPct: 31,
-      baseline: "28.0% target",
-      directionNote: "Utilization above 40% threshold adds 3.1 bps risk",
-    },
-    {
-      name: "Recent credit inquiries",
-      value: "3 in 6m",
-      delta: 0.018,
-      deltaText: "+0.018",
-      type: "increase",
-      widthPct: 18,
-      baseline: "1 inquiry avg",
-      directionNote: "Multiple inquiries indicate short-term credit seeking",
-    },
-    {
-      name: "Requested loan amount",
-      value: "$24,000",
-      delta: 0.006,
-      deltaText: "+0.006",
-      type: "increase",
-      widthPct: 6,
-      baseline: "$18,500 mean",
-      directionNote: "Slight principal exposure elevation",
-    },
-  ];
+  const [data, setData] = useState<ExplainabilityPayload | null>(null);
+  const [live, setLive] = useState(true);
+
+  useEffect(() => {
+    fetchExplainability()
+      .then((d) => {
+        setData(d);
+        setLive(true);
+      })
+      .catch((e) => {
+        if (e instanceof ApiUnavailableError || e instanceof TypeError) setLive(false);
+      });
+  }, []);
+
+  const maxShare = data?.features?.[0]?.gainShare ?? 1;
 
   return (
     <div className="flex flex-col w-full text-[#181c1a]">
-      {/* Dossier Header & Context */}
+      {/* Page Header */}
       <div className="pb-6 border-b border-[#c1c8c8]">
-        <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 mb-1">
-          <h1 className="font-serif text-[28px] leading-[36px] text-[#072427] font-medium tracking-tight">
-            Feature Attribution &amp; Local SHAP Analysis
-          </h1>
-          <span className="font-mono text-[12px] text-[#414849]">
-            Model: LightGBM v3.1 | Seed: #4092
-          </span>
-        </div>
-        <p className="font-sans text-[14px] text-[#414849] max-w-[850px] mb-4">
-          Deconstruction of default risk factors for Application #CR-948201 using Shapley additive explanations (LightGBM v3.1).
+        <h1 className="font-serif text-[28px] leading-[36px] text-[#072427] font-medium tracking-tight">
+          What drives the model's decisions?
+        </h1>
+        <p className="font-sans text-[15px] text-[#414849] max-w-[820px] mt-2 leading-relaxed">
+          The LightGBM champion model was trained on 307,511 loan applications. The chart below shows
+          which pieces of information it relies on most heavily — and by how much — when estimating
+          the probability that an applicant will default.
+        </p>
+        <p className="font-sans text-[13px] text-[#414849] max-w-[820px] mt-2 leading-relaxed">
+          <span className="font-medium text-[#181c1a]">How to read this:</span> Each bar represents
+          a feature (a piece of data about the applicant). The longer the bar, the more that feature
+          influences the model's output. The percentage is the feature's share of the total
+          &quot;learning signal&quot; across all 450+ decision trees.
         </p>
 
-        {/* Actuarial Baseline Metric Block */}
-        <div className="p-4 bg-[#ecefeb] border border-[#c1c8c8] flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-6 flex-wrap">
-            <div>
-              <span className="font-sans text-[11px] text-[#414849] block">
-                Base default expectation E[f(x)]
-              </span>
-              <span className="font-mono text-[14px] text-[#181c1a] font-medium">
-                21.40%
-              </span>
-            </div>
-            <div className="h-8 w-px bg-[#c1c8c8] hidden sm:block"></div>
-            <div>
-              <span className="font-sans text-[11px] text-[#414849] block">
-                Applicant calculated score
-              </span>
-              <span className="font-mono text-[14px] text-[#072427] font-medium">
-                14.80%
-              </span>
-            </div>
-            <div className="h-8 w-px bg-[#c1c8c8] hidden sm:block"></div>
-            <div>
-              <span className="font-sans text-[11px] text-[#414849] block">
-                Total net displacement
-              </span>
-              <span className="font-mono text-[14px] text-[#39684a] font-medium">
-                –6.60% (–0.0660)
-              </span>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#39684a]"></span>
-            <span className="font-sans text-[11px] text-[#414849] font-medium">
-              Adjudication posture: Favorable
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Legend & Section Title */}
-      <div className="pt-6 pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-        <div className="font-serif text-[18px] text-[#072427] font-medium">
-          Diverging SHAP Vector Graph
-        </div>
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-1.5">
-            <div className="w-3.5 h-2 bg-[#4B7A5B]"></div>
-            <span className="font-sans text-[11px] text-[#414849]">
-              Decreases default risk
-            </span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <div className="w-3.5 h-2 bg-[#A8432E]"></div>
-            <span className="font-sans text-[11px] text-[#414849]">
-              Increases default risk
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Diverging Bar Chart Matrix */}
-      <div className="py-4 border-b border-[#c1c8c8] overflow-x-auto">
-        <div className="min-w-[760px] flex flex-col">
-          {/* Scale Header Guidelines */}
-          <div className="grid grid-cols-12 gap-0 pb-2 font-mono text-[12px] text-[#414849] border-b border-[#c1c8c8]">
-            <div className="col-span-5 text-left font-sans text-[11px] uppercase tracking-wider font-medium">
-              Feature identifier &amp; raw value
-            </div>
-            <div className="col-span-7 relative">
-              <div className="flex justify-between w-full text-center">
-                <span className="w-12 text-left">–0.05</span>
-                <span className="w-12">–0.03</span>
-                <span className="w-12">–0.01</span>
-                <span className="w-12 font-medium text-[#181c1a]">0.00</span>
-                <span className="w-12">+0.01</span>
-                <span className="w-12">+0.03</span>
-                <span className="w-12 text-right">+0.05</span>
+        {/* Live model benchmark strip */}
+        {data?.benchmark && (
+          <div className="mt-4 p-4 bg-[#ecefeb] border border-[#c1c8c8] flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-6 flex-wrap">
+              <div>
+                <span className="font-sans text-[11px] text-[#414849] block">Model accuracy (AUC)</span>
+                <span className="font-mono text-[14px] text-[#072427] font-medium">
+                  {data.benchmark.aucRoc?.toFixed(4) ?? "—"}
+                  <span className="font-sans text-[11px] text-[#414849] ml-1 font-normal">out of 1.0</span>
+                </span>
+              </div>
+              <div className="h-8 w-px bg-[#c1c8c8] hidden sm:block" />
+              <div>
+                <span className="font-sans text-[11px] text-[#414849] block">Separation power (KS)</span>
+                <span className="font-mono text-[14px] text-[#072427] font-medium">
+                  {data.benchmark.ksStat ? `${(data.benchmark.ksStat * 100).toFixed(1)}%` : "—"}
+                  <span className="font-sans text-[11px] text-[#414849] ml-1 font-normal">gap between good/bad</span>
+                </span>
+              </div>
+              <div className="h-8 w-px bg-[#c1c8c8] hidden sm:block" />
+              <div>
+                <span className="font-sans text-[11px] text-[#414849] block">Precision on defaulters (PR-AUC)</span>
+                <span className="font-mono text-[14px] text-[#39684a] font-medium">
+                  {data.benchmark.prAuc?.toFixed(4) ?? "—"}
+                  <span className="font-sans text-[11px] text-[#414849] ml-1 font-normal">vs 0.08 random baseline</span>
+                </span>
               </div>
             </div>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#39684a]" />
+              <span className="font-sans text-[11px] text-[#414849] font-medium">
+                Live from trained model
+              </span>
+            </div>
           </div>
-
-          {/* Diverging Rows */}
-          <div className="divide-y divide-[#c1c8c8] relative">
-            {/* Center hairline through canvas */}
-            <div className="absolute left-[calc(5/12*100%+7/12*50%)] top-0 bottom-0 w-px bg-[#c1c8c8] pointer-events-none z-10"></div>
-
-            {shapFeatures.map((f, i) => (
-              <div key={i} className="grid grid-cols-12 items-center py-3 hover:bg-[#f1f4f1] transition-colors">
-                <div className="col-span-5 pr-4 flex items-baseline justify-between">
-                  <span className="font-sans text-[14px] text-[#181c1a]">{f.name}</span>
-                  <span className="font-mono text-[12px] text-[#414849]">{f.value}</span>
-                </div>
-                <div className="col-span-7 relative h-7 flex items-center">
-                  {f.type === "decrease" ? (
-                    <>
-                      <div
-                        className="absolute right-[50%] h-[8px] bg-[#4B7A5B]"
-                        style={{ width: `${f.widthPct * 0.85}%` }}
-                      ></div>
-                      <span
-                        className="absolute font-mono text-[12px] text-[#4B7A5B] font-medium"
-                        style={{ right: `calc(50% + ${f.widthPct * 0.85}% + 8px)` }}
-                      >
-                        {f.deltaText}
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <div
-                        className="absolute left-[50%] h-[8px] bg-[#A8432E]"
-                        style={{ width: `${f.widthPct * 0.85}%` }}
-                      ></div>
-                      <span
-                        className="absolute font-mono text-[12px] text-[#A8432E] font-medium"
-                        style={{ left: `calc(50% + ${f.widthPct * 0.85}% + 8px)` }}
-                      >
-                        {f.deltaText}
-                      </span>
-                    </>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        )}
       </div>
 
-      {/* Feature Attribution Table */}
-      <section className="mt-8 border border-[#c1c8c8] bg-[#ffffff]">
-        <div className="px-4 py-3 bg-[#f1f4f1] border-b border-[#c1c8c8] flex items-center justify-between">
-          <span className="font-sans text-[13px] text-[#181c1a] font-medium">
-            Detailed Shapley Value Ledger
-          </span>
-          <span className="font-mono text-[11px] text-[#414849]">
-            7 Contributing Vectors Analyzed
-          </span>
+      {!data && (
+        <div className="mt-8 bg-[#ffffff] border border-[#c1c8c8] p-8 text-center font-sans text-[13px] text-[#414849]">
+          {live
+            ? "Loading feature importances from the model API…"
+            : "The model API (localhost:8000) is offline. Start it with `uvicorn server.api:app --reload` from the project root to see the real feature importances here."}
         </div>
+      )}
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-[#f7faf6] border-b border-[#c1c8c8] font-sans text-[11px] text-[#414849] uppercase tracking-wider">
-                <th className="py-2.5 px-4 font-medium">Feature Identifier</th>
-                <th className="py-2.5 px-4 font-medium">Applicant Value</th>
-                <th className="py-2.5 px-4 font-medium text-right">SHAP Delta</th>
-                <th className="py-2.5 px-4 font-medium">Cohort Benchmark</th>
-                <th className="py-2.5 px-4 font-medium">Directional Rationale</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#c1c8c8] font-sans text-[13px] text-[#181c1a]">
-              {shapFeatures.map((f, i) => (
-                <tr key={i} className="hover:bg-[#f1f4f1] transition-colors">
-                  <td className="py-3 px-4 font-medium text-[#072427]">{f.name}</td>
-                  <td className="py-3 px-4 font-mono text-[12px]">{f.value}</td>
-                  <td className={`py-3 px-4 font-mono text-right font-medium ${f.type === "decrease" ? "text-[#4B7A5B]" : "text-[#A8432E]"}`}>
-                    {f.deltaText}
-                  </td>
-                  <td className="py-3 px-4 font-mono text-[12px] text-[#414849]">{f.baseline}</td>
-                  <td className="py-3 px-4 text-[#414849] text-[12px]">{f.directionNote}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+      {data && (
+        <>
+          {/* Feature Importance Bar Chart */}
+          <div className="pt-8">
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-4">
+              <h2 className="font-serif text-[20px] text-[#072427] font-medium">
+                Top {data.features.length} most influential factors
+              </h2>
+              <span className="font-sans text-[12px] text-[#414849]">
+                Ranked by share of total learning signal
+              </span>
+            </div>
+
+            <div className="flex flex-col divide-y divide-[#c1c8c8] border border-[#c1c8c8] bg-[#ffffff]">
+              {data.features.map((f, i) => {
+                const meta = getFeatureMeta(f.name);
+                const barPct = (f.gainShare / maxShare) * 100;
+                return (
+                  <div key={f.name} className="p-4 hover:bg-[#f7faf6] transition-colors">
+                    {/* Top row: rank, label, bar, percentage */}
+                    <div className="flex items-center gap-4">
+                      <span className="font-mono text-[12px] text-[#414849] w-6 shrink-0">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="font-sans text-[14px] font-medium text-[#072427] w-56 shrink-0">
+                        {meta.label}
+                      </span>
+                      <div className="flex-1 h-4 bg-[#f1f4f1] border border-[#c1c8c8] min-w-[80px]">
+                        <div
+                          className="h-full bg-[#1f3a3d] transition-all"
+                          style={{ width: `${barPct}%` }}
+                        />
+                      </div>
+                      <span className="font-mono text-[13px] text-[#39684a] font-medium w-12 text-right shrink-0">
+                        {(f.gainShare * 100).toFixed(1)}%
+                      </span>
+                    </div>
+                    {/* Plain-English explanation */}
+                    <p className="mt-1.5 ml-10 font-sans text-[12px] text-[#414849] leading-relaxed max-w-[680px]">
+                      {meta.plain}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Plain-English Summary */}
+          <div className="mt-8 p-5 border border-[#c1c8c8] bg-[#f7faf6]">
+            <h3 className="font-sans text-[13px] font-medium text-[#181c1a] mb-2">Key takeaways</h3>
+            <ul className="font-sans text-[13px] text-[#414849] leading-relaxed space-y-1.5 list-disc list-inside">
+              <li>
+                <span className="font-medium text-[#181c1a]">External credit bureau scores</span> are by far the strongest signal — they alone account for the majority of the model's predictive power.
+              </li>
+              <li>
+                <span className="font-medium text-[#181c1a]">Age and employment duration</span> are the next most important — they capture financial stability over time.
+              </li>
+              <li>
+                <span className="font-medium text-[#181c1a]">Loan size and income</span> matter in combination — a large loan relative to income is a strong risk indicator.
+              </li>
+              <li>
+                <span className="font-medium text-[#181c1a]">Engineered ratios</span> (Payment Rate, DTI, Career Stability Index) were added specifically because they capture relationships the raw numbers alone miss.
+              </li>
+            </ul>
+          </div>
+        </>
+      )}
     </div>
   );
 }

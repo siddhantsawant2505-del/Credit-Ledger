@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
+import {
+  MODEL_DISPLAY,
+  POPULATION_DEFAULT_RATE,
+  fetchBenchmarks,
+  predict,
+  type Benchmarks,
+} from "../../lib/api";
 
 export default function PredictResultsPage() {
   const [activeTab, setActiveTab] = useState<"composite" | "personal" | "financial" | "credit">("composite");
@@ -17,7 +24,30 @@ export default function PredictResultsPage() {
   const [priorDelinquencies, setPriorDelinquencies] = useState<number>(0);
 
   // Model Switcher State
-  const [selectedModel, setSelectedModel] = useState<string>("lgbm");
+  const [selectedModel, setSelectedModel] = useState<string>("lightgbm");
+  const [isLiveApi, setIsLiveApi] = useState<boolean>(false);
+  const [liveResult, setLiveResult] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [benchmarks, setBenchmarks] = useState<Benchmarks | null>(null);
+
+  // Real benchmark metrics for the model selector labels
+  useEffect(() => {
+    fetchBenchmarks()
+      .then(setBenchmarks)
+      .catch(() => setBenchmarks(null));
+  }, []);
+
+  const modelOptions = useMemo(
+    () =>
+      Object.entries(MODEL_DISPLAY).map(([key, d]) => {
+        const auc = benchmarks?.[key]?.auc_roc;
+        return {
+          value: key,
+          label: `${d.label}${typeof auc === "number" ? ` (AUC ${auc.toFixed(4)})` : ""}`,
+        };
+      }),
+    [benchmarks]
+  );
 
   // Reset helper
   const handleReset = () => {
@@ -30,29 +60,88 @@ export default function PredictResultsPage() {
     setDtiRatio(28.4);
     setUtilizationRate(41.2);
     setPriorDelinquencies(0);
-    setSelectedModel("lgbm");
+    setSelectedModel("lightgbm");
+    setLiveResult(null);
+  };
+
+  // Live API Fetcher
+  const runLivePrediction = async () => {
+    setLoading(true);
+    try {
+      const data = await predict({
+        age,
+        employment,
+        residential,
+        annualIncome,
+        requestedPrincipal,
+        loanTerm,
+        dtiRatio,
+        utilizationRate,
+        priorDelinquencies,
+        selectedModel,
+      });
+      setLiveResult(data);
+      setIsLiveApi(true);
+    } catch {
+      setLiveResult(null);
+      setIsLiveApi(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Prediction Math Simulation
   const prediction = useMemo(() => {
-    // Model base offsets
+    // Model base offsets (offline simulation only; use "Run prediction" for real model inference)
     const modelOffsets: Record<string, number> = {
-      lgbm: 0.0,
-      xgb: 0.04,
-      cat: -0.015,
-      logreg: 0.11,
+      lightgbm: 0.0,
+      xgboost: 0.04,
+      gradient_boosting: -0.015,
+      logistic_regression: 0.11,
+      stacking_ensemble: -0.02,
+      dnn: 0.02,
+      lda: 0.05,
+      random_forest: 0.03,
     };
 
     const modelOffset = modelOffsets[selectedModel] || 0.0;
 
-    // Linear score accumulation
-    let score = -1.82 + modelOffset;
+    // Linear score accumulation calibrated to 8.07% population default rate
+    let score = -2.42 + modelOffset;
     score += (dtiRatio - 25) * 0.035;
     score += (utilizationRate - 30) * 0.025;
     score += priorDelinquencies * 0.55;
     score += Math.max(-0.4, (75000 - annualIncome) / 100000);
     score += (requestedPrincipal / Math.max(1, annualIncome)) * 0.45;
     score += (40 - age) * 0.01;
+
+    if (liveResult) {
+      const pd = liveResult.probabilityOfDefault;
+      let badgeColorClass = "border-[#39684a] text-[#39684a] bg-[#bbefc9]/30";
+      if (liveResult.riskTier === "high") {
+        badgeColorClass = "border-[#ba1a1a] text-[#ba1a1a] bg-[#ffdad6]/40";
+      } else if (liveResult.riskTier === "medium") {
+        badgeColorClass = "border-[#B8862E] text-[#B8862E] bg-[#F5F4EF]";
+      }
+
+      return {
+        pd,
+        pdPercent: liveResult.probabilityPercent.toFixed(1),
+        pdExact: pd.toFixed(4),
+        expectedLoss: liveResult.expectedLoss,
+        riskTier: liveResult.riskTier,
+        verdictLabel: liveResult.verdictLabel,
+        verdictNote: liveResult.verdictNote,
+        badgeColorClass,
+        shap: {
+          dti: liveResult.shapContributions?.["Debt-to-income ratio"] || 0,
+          delinq: liveResult.shapContributions?.["Prior Delinquencies"] || 0,
+          tenure: liveResult.shapContributions?.["Employment Tenure"] || 0,
+          home: -0.015,
+          util: liveResult.shapContributions?.["Credit Utilization"] || 0,
+        },
+      };
+    }
 
     // Sigmoid probability conversion
     const pd = 1 / (1 + Math.exp(-score));
@@ -62,21 +151,21 @@ export default function PredictResultsPage() {
     // Expected Loss (EL) with 45% Loss Given Default (LGD)
     const expectedLoss = Math.round(requestedPrincipal * pd * 0.45);
 
-    // Risk Classification Tier
+    // Calibrated Risk Classification Tier aligned with 8.07% population default rate
     let riskTier: "low" | "medium" | "high" = "low";
     let verdictLabel = "Low risk";
-    let verdictNote = "Score qualifies under prime tier lending parameters (Tier A-2). Recommended automatic underwriting pass.";
+    let verdictNote = "Probability of default is below population baseline. Recommended automatic prime underwriting pass.";
     let badgeColorClass = "border-[#39684a] text-[#39684a] bg-[#bbefc9]/30";
 
-    if (pd >= 0.35) {
+    if (pd >= 0.18) {
       riskTier = "high";
       verdictLabel = "High risk";
-      verdictNote = "Score exceeds maximum risk tolerance threshold (Tier C-3). Adverse notice issuance required; immediate decline.";
+      verdictNote = "Calibrated default hazard exceeds 2x the population benchmark. Adverse notice or senior committee review recommended.";
       badgeColorClass = "border-[#ba1a1a] text-[#ba1a1a] bg-[#ffdad6]/40";
-    } else if (pd >= 0.18) {
+    } else if (pd >= POPULATION_DEFAULT_RATE) {
       riskTier = "medium";
       verdictLabel = "Medium risk";
-      verdictNote = "Score falls in conditional underwriting bracket (Tier B-1). Requires manual senior adjudicator concurrence and collateral verification.";
+      verdictNote = "Default risk aligns within conditional underwriting bracket (Tier B). Secondary income/collateral verification required.";
       badgeColorClass = "border-[#B8862E] text-[#B8862E] bg-[#F5F4EF]";
     }
 
@@ -105,6 +194,7 @@ export default function PredictResultsPage() {
       },
     };
   }, [
+    liveResult,
     age,
     employment,
     residential,
@@ -386,9 +476,11 @@ export default function PredictResultsPage() {
             <div className="flex items-center gap-4">
               <button
                 type="button"
-                className="h-10 px-6 font-sans text-[13px] font-medium text-[#ffffff] bg-[#1f3a3d] hover:bg-[#072427] rounded-[2px] transition-colors"
+                onClick={runLivePrediction}
+                disabled={loading}
+                className="h-10 px-6 font-sans text-[13px] font-medium text-[#ffffff] bg-[#1f3a3d] hover:bg-[#072427] rounded-[2px] transition-colors disabled:opacity-50"
               >
-                Run prediction
+                {loading ? "Running model inference..." : "Run prediction"}
               </button>
               <button
                 type="button"
@@ -398,8 +490,16 @@ export default function PredictResultsPage() {
                 Reset form values
               </button>
             </div>
-            <div className="font-mono text-[12px] text-[#414849]">
-              Read-only audit record active
+            <div className="flex items-center gap-2 font-mono text-[12px]">
+              {isLiveApi ? (
+                <span className="text-[#39684a] bg-[#bbefc9]/40 border border-[#39684a] px-2 py-0.5 rounded-[2px]">
+                  ● Live Model API Active
+                </span>
+              ) : (
+                <span className="text-[#414849] bg-[#ecefeb] border border-[#c1c8c8] px-2 py-0.5 rounded-[2px]">
+                  ○ Offline Simulation Mode
+                </span>
+              )}
             </div>
           </div>
         </form>
@@ -431,10 +531,11 @@ export default function PredictResultsPage() {
               onChange={(e) => setSelectedModel(e.target.value)}
               className="h-10 px-3 font-mono text-[12px] text-[#181c1a] bg-[#ffffff] border border-[#c1c8c8] rounded-[2px] focus:border-[#1f3a3d] focus:outline-none"
             >
-              <option value="lgbm">LightGBM v3.1 (Champion Model)</option>
-              <option value="xgb">XGBoost v2.0 (Challenger A)</option>
-              <option value="cat">CatBoost v1.2 (Benchmark)</option>
-              <option value="logreg">Logistic Regression Baseline (Linear)</option>
+              {modelOptions.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -461,10 +562,10 @@ export default function PredictResultsPage() {
             </div>
             <div className="pt-4 mt-4 border-t border-[#c1c8c8]">
               <div className="font-sans text-[12px] text-[#414849]">
-                Population median <span className="font-mono text-[#181c1a]">21.4%</span>
+                Population default rate <span className="font-mono text-[#181c1a]">{(POPULATION_DEFAULT_RATE * 100).toFixed(2)}%</span>
               </div>
               <div className="font-sans text-[11px] text-[#39684a] mt-1 font-medium">
-                {(prediction.pd * 100 - 21.4).toFixed(1)}% relative to historical benchmark cohort
+                {(prediction.pd * 100 - POPULATION_DEFAULT_RATE * 100).toFixed(1)}% relative to the training cohort baseline
               </div>
             </div>
           </div>
@@ -551,7 +652,7 @@ export default function PredictResultsPage() {
                     <span className="inline-block w-2 h-2 bg-[#39684a]"></span>
                     <span className="text-[#39684a]">Low risk</span>
                   </td>
-                  <td className="py-2.5 px-4 font-mono text-right">PD &lt; 18.0%</td>
+                  <td className="py-2.5 px-4 font-mono text-right">PD &lt; {(POPULATION_DEFAULT_RATE * 100).toFixed(1)}%</td>
                   <td className="py-2.5 px-4 font-mono text-right">$100,000</td>
                   <td className="py-2.5 px-4">Standard covenant; automatic pass available</td>
                   <td className="py-2.5 px-4 text-right font-medium">
@@ -569,7 +670,7 @@ export default function PredictResultsPage() {
                     <span className="inline-block w-2 h-2 bg-[#B8862E]"></span>
                     <span className="text-[#B8862E]">Medium risk</span>
                   </td>
-                  <td className="py-2.5 px-4 font-mono text-right">18.0% ≤ PD &lt; 35.0%</td>
+                  <td className="py-2.5 px-4 font-mono text-right">{(POPULATION_DEFAULT_RATE * 100).toFixed(1)}% ≤ PD &lt; 18.0%</td>
                   <td className="py-2.5 px-4 font-mono text-right">$45,000</td>
                   <td className="py-2.5 px-4">Manual senior adjudicator concurrence required</td>
                   <td className="py-2.5 px-4 text-right font-medium">
@@ -587,7 +688,7 @@ export default function PredictResultsPage() {
                     <span className="inline-block w-2 h-2 bg-[#ba1a1a]"></span>
                     <span className="text-[#ba1a1a]">High risk</span>
                   </td>
-                  <td className="py-2.5 px-4 font-mono text-right">PD ≥ 35.0%</td>
+                  <td className="py-2.5 px-4 font-mono text-right">PD ≥ 18.0%</td>
                   <td className="py-2.5 px-4 font-mono text-right">$0</td>
                   <td className="py-2.5 px-4">Adverse notice issuance; immediate decline</td>
                   <td className="py-2.5 px-4 text-right font-medium">

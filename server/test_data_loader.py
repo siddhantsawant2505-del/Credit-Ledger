@@ -11,7 +11,11 @@ if str(server_dir) not in sys.path:
 
 import numpy as np
 import pandas as pd
-from data_loader import reduce_mem_usage, HomeCreditDataLoader
+from data_loader import (
+    REAL_DATA_SHAPE_MINIMUMS,
+    reduce_mem_usage,
+    HomeCreditDataLoader,
+)
 
 
 class TestDataLoader(unittest.TestCase):
@@ -55,6 +59,58 @@ class TestDataLoader(unittest.TestCase):
         self.assertEqual(downcasted["med_int"].dtype, np.int16)
         self.assertEqual(downcasted["float_val"].dtype, np.float32)
 
+    def test_categorical_downcast(self):
+        """Object columns convert to category dtype by default, preserving values."""
+        # Use a realistic frame size: category conversion pays off at scale,
+        # not on toy 4-row frames where overhead cancels the savings.
+        n = 1_000
+        df = pd.DataFrame(
+            {
+                "contract": np.random.default_rng(0).choice(["Cash loans", "Revolving loans"], size=n),
+                "gender": np.random.default_rng(1).choice(["M", "F"], size=n),
+                "id": np.arange(n),
+            }
+        )
+        original_mem = df.memory_usage(deep=True).sum() / (1024**2)
+        downcasted, _, end_mem = reduce_mem_usage(df)
+
+        self.assertIsInstance(downcasted["contract"].dtype, pd.CategoricalDtype)
+        self.assertIsInstance(downcasted["gender"].dtype, pd.CategoricalDtype)
+
+        # Values preserved exactly (order + content)
+        self.assertEqual(list(downcasted["contract"]), list(df["contract"]))
+        self.assertEqual(list(downcasted["gender"]), list(df["gender"]))
+
+        # Categorical conversion must actually save memory on string-heavy frames
+        self.assertLess(end_mem, original_mem)
+
+    def test_categorical_nan_preserved(self):
+        """NaN values survive object -> category conversion (no sentinel leakage)."""
+        df = pd.DataFrame({"with_nan": ["A", None, "B", "A"]})
+        downcasted, _, _ = reduce_mem_usage(df)
+        self.assertIsInstance(downcasted["with_nan"].dtype, pd.CategoricalDtype)
+        self.assertTrue(downcasted["with_nan"].isnull().any())
+        # NaN must NOT have become a category of its own
+        self.assertNotIn("__MISSING__", list(downcasted["with_nan"].cat.categories))
+
+    def test_opt_out_categorical(self):
+        """convert_categories=False keeps object columns untouched."""
+        df = pd.DataFrame({"contract": ["Cash", "Revolving"]})
+        downcasted, _, _ = reduce_mem_usage(df, convert_categories=False)
+        self.assertEqual(downcasted["contract"].dtype, object)
+
+    def test_categorical_join_keys_untouched(self):
+        """ID columns stay numeric even with categorical conversion on."""
+        df = pd.DataFrame(
+            {
+                "SK_ID_CURR": [100001, 100002, 100003],
+                "contract": ["Cash", "Cash", "Revolving"],
+            }
+        )
+        downcasted, _, _ = reduce_mem_usage(df)
+        self.assertTrue(pd.api.types.is_integer_dtype(downcasted["SK_ID_CURR"]))
+        self.assertIsInstance(downcasted["contract"].dtype, pd.CategoricalDtype)
+
     def test_inspect_application_train(self):
         stats = HomeCreditDataLoader.inspect_application_train(self.df_train)
         self.assertEqual(stats["shape"], (4, 5))
@@ -87,6 +143,38 @@ class TestDataLoader(unittest.TestCase):
         self.assertIn("application_train", report)
         self.assertIn("bureau", report)
         self.assertIn("TARGET Class Balance", report)
+        # Authenticity section must always be present
+        self.assertIn("Data Authenticity Check", report)
+
+    def test_authenticity_rejects_synthetic(self):
+        """Tiny tables (like the bundled 10k-row sample) must be flagged."""
+        loader = HomeCreditDataLoader()
+        result = loader.check_data_authenticity(self.tables)
+        self.assertFalse(result["is_authentic"])
+        self.assertEqual(result["verdict"], "SYNTHETIC_OR_TRUNCATED")
+        self.assertFalse(result["tables"]["application_train"]["authentic"])
+        self.assertIn("generate_sample_data", result["message"])
+
+    def test_authenticity_accepts_real_scale(self):
+        """DataFrames shaped like the real dataset (with correct IDs) pass."""
+        n = REAL_DATA_SHAPE_MINIMUMS["application_train"]["min_rows"]
+        n_cols = REAL_DATA_SHAPE_MINIMUMS["application_train"]["min_cols"]
+        real_scale_train = pd.DataFrame(
+            {
+                "SK_ID_CURR": np.arange(100001, 100001 + n),
+                **{f"feat_{i}": np.zeros(n) for i in range(n_cols - 1)},
+            }
+        )
+        loader = HomeCreditDataLoader()
+        result = loader.check_data_authenticity({"application_train": real_scale_train})
+        self.assertTrue(result["is_authentic"])
+        self.assertEqual(result["verdict"], "AUTHENTIC")
+
+    def test_minimums_cover_all_standard_tables(self):
+        """Every standard table has a fingerprint (guards against typos)."""
+        from data_loader import DATA_FILES
+
+        self.assertEqual(set(REAL_DATA_SHAPE_MINIMUMS.keys()), set(DATA_FILES.keys()))
 
 
 if __name__ == "__main__":

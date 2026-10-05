@@ -37,6 +37,22 @@ DATA_FILES = {
     "credit_card_balance": "credit_card_balance.csv",
 }
 
+# Ground-truth shape fingerprints of the REAL Kaggle Home Credit Default Risk tables.
+# If a loaded table is smaller than these minimums (rows or columns), the files in
+# data/ are almost certainly the bundled SYNTHETIC sample (server/generate_sample_data.py)
+# or a truncated download, NOT the real competition data.
+# Generated with a ~2% safety margin under the true row counts (e.g. train 307,511).
+REAL_DATA_SHAPE_MINIMUMS = {
+    "application_train": {"min_rows": 300_000, "min_cols": 122},
+    "application_test": {"min_rows": 48_000, "min_cols": 121},
+    "bureau": {"min_rows": 1_600_000, "min_cols": 17},
+    "bureau_balance": {"min_rows": 27_000_000, "min_cols": 3},
+    "previous_application": {"min_rows": 1_600_000, "min_cols": 37},
+    "POS_CASH_balance": {"min_rows": 10_000_000, "min_cols": 8},
+    "installments_payments": {"min_rows": 13_600_000, "min_cols": 8},
+    "credit_card_balance": {"min_rows": 3_800_000, "min_cols": 8},
+}
+
 # Foreign key relationships: (Key, Parent Table, List of Child Tables)
 JOIN_KEY_RELATIONSHIPS = [
     {
@@ -72,8 +88,7 @@ JOIN_KEY_RELATIONSHIPS = [
 def reduce_mem_usage(
     df: pd.DataFrame,
     verbose: bool = False,
-    convert_categories: bool = False,
-    category_threshold: float = 0.5,
+    convert_categories: bool = True,
 ) -> Tuple[pd.DataFrame, float, float]:
     """Iterates through columns and safely downcasts numeric types to reduce memory.
 
@@ -84,14 +99,21 @@ def reduce_mem_usage(
     verbose : bool
         If True, log memory savings for individual columns.
     convert_categories : bool
-        If True, convert low-cardinality object columns to categorical.
-    category_threshold : float
-        Max unique values ratio (nunique / len) to qualify for categorical conversion.
+        If True, convert object (string) columns to pandas ``category`` dtype.
+        Category conversion preserves the exact string values (join/merge on
+        category columns works like object columns), while typically cutting
+        string-column memory by 60-90% on low-cardinality columns such as
+        NAME_CONTRACT_TYPE or CODE_GENDER.
 
     Returns
     -------
     Tuple[pd.DataFrame, float, float]
         Tuple containing (modified dataframe, initial_memory_mb, final_memory_mb).
+
+    Notes
+    -----
+    Join-key columns (SK_ID_CURR, SK_ID_PREV, SK_ID_BUREAU) are never
+    categorical-converted, preserving exact integer joins.
     """
     start_mem = df.memory_usage(deep=True).sum() / (1024**2)
 
@@ -131,11 +153,12 @@ def reduce_mem_usage(
             else:
                 df[col] = df[col].astype(np.float64)
 
-        elif convert_categories and (col_type == object or isinstance(col_type, pd.StringDtype)):
-            num_unique = df[col].nunique(dropna=True)
-            num_total = len(df[col])
-            if num_total > 0 and (num_unique / num_total) < category_threshold:
-                df[col] = df[col].astype("category")
+        elif convert_categories and col_type == object:
+            # pandas >= 1.5 casts object->category directly, preserving NaN
+            # as missing values (no sentinel needed, no FutureWarning in pandas 2.x)
+            df[col] = df[col].astype("category")
+            if verbose:
+                logger.info(f"  Column '{col}' -> category")
 
     end_mem = df.memory_usage(deep=True).sum() / (1024**2)
     if verbose:
@@ -247,6 +270,88 @@ class HomeCreditDataLoader:
 
         return loaded
 
+    def check_data_authenticity(
+        self, tables: Optional[Dict[str, pd.DataFrame]] = None
+    ) -> Dict[str, Any]:
+        """Detects whether loaded tables are the real Kaggle dataset or synthetic/truncated samples.
+
+        Compares each table's shape against ground-truth minimums of the real
+        Home Credit Default Risk dataset (REAL_DATA_SHAPE_MINIMUMS). A table
+        that is too small in rows OR columns cannot be the real data.
+
+        Returns a dict with:
+            "is_authentic" : bool - True only if every loaded known table matches
+            "verdict"      : 'AUTHENTIC' | 'SYNTHETIC_OR_TRUNCATED'
+            "tables"       : per-table diagnostics (expected vs actual shape)
+            "message"      : human-readable summary for reports/CLI
+        """
+        data = tables or self.tables
+        table_details: Dict[str, Dict[str, Any]] = {}
+        all_authentic = True
+
+        for tname, df in data.items():
+            minimums = REAL_DATA_SHAPE_MINIMUMS.get(tname)
+            if minimums is None:
+                continue  # unknown table: cannot fingerprint
+
+            rows, cols = df.shape
+            rows_ok = rows >= minimums["min_rows"]
+            cols_ok = cols >= minimums["min_cols"]
+            authentic = rows_ok and cols_ok
+            all_authentic &= authentic
+
+            reasons = []
+            if not rows_ok:
+                reasons.append(
+                    f"rows {rows:,} < expected minimum {minimums['min_rows']:,}"
+                )
+            if not cols_ok:
+                reasons.append(
+                    f"columns {cols} < expected minimum {minimums['min_cols']}"
+                )
+
+            table_details[tname] = {
+                "actual_shape": (rows, cols),
+                "expected_min_shape": (
+                    minimums["min_rows"],
+                    minimums["min_cols"],
+                ),
+                "authentic": authentic,
+                "reasons": reasons,
+                "hint": (
+                    "matches synthetic sample scale"
+                    if not authentic
+                    and rows <= 100_000
+                    else ("" if authentic else "truncated download?")
+                ),
+            }
+
+        verdict = "AUTHENTIC" if all_authentic else "SYNTHETIC_OR_TRUNCATED"
+        if all_authentic:
+            message = (
+                "[OK] All loaded tables match the real Kaggle dataset scale. "
+                "Safe to proceed with preprocessing."
+            )
+        else:
+            synthetic_hint = (
+                " These shapes match server/generate_sample_data.py output."
+                if any(d["hint"] == "matches synthetic sample scale" for d in table_details.values())
+                else ""
+            )
+            message = (
+                "[WARN] Loaded data does NOT match the real Kaggle Home Credit "
+                "dataset scale." + synthetic_hint + " Preprocessing/training on this "
+                "data will NOT produce valid results. Run 'python server/fetch_data.py' "
+                "to download the real dataset into data/."
+            )
+
+        return {
+            "is_authentic": all_authentic,
+            "verdict": verdict,
+            "tables": table_details,
+            "message": message,
+        }
+
     @staticmethod
     def inspect_application_train(df: pd.DataFrame) -> Dict[str, Any]:
         """Inspects application_train.csv: shape, dtypes, missingness, and TARGET balance.
@@ -254,8 +359,10 @@ class HomeCreditDataLoader:
         Returns structured diagnostics for reports and validation.
         """
         shape = df.shape
-        dtypes_count = df.dtypes.value_counts().to_dict()
-        dtypes_str = {str(k): v for k, v in dtypes_count.items()}
+        # Stringify dtypes BEFORE counting: each CategoricalDtype instance is a
+        # distinct key in value_counts(), and str()-collapsing afterwards would
+        # silently keep only the last one (all stringify to "category").
+        dtypes_str = df.dtypes.apply(str).value_counts().to_dict()
 
         # Missing values
         total_cells = np.prod(shape)
@@ -490,6 +597,25 @@ class HomeCreditDataLoader:
         lines.append(f"> **Generated at**: {pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S')}")
         lines.append(f"> **Data Directory**: `{self.data_dir.resolve()}`\n")
 
+        # 0. Data Authenticity Check (real Kaggle data vs synthetic/truncated sample)
+        authenticity = self.check_data_authenticity(self.tables)
+        lines.append("## 0. Data Authenticity Check\n")
+        if authenticity["is_authentic"]:
+            lines.append(f"- **Verdict**: `{authenticity['verdict']}` - {authenticity['message']}\n")
+        else:
+            lines.append(f"- **Verdict**: `:x: {authenticity['verdict']}`")
+            lines.append(f"- {authenticity['message']}\n")
+            lines.append("| Table | Actual Shape | Expected Minimum (rows, cols) | Status |")
+            lines.append("| :--- | :--- | :--- | :--- |")
+            for tname, detail in authenticity["tables"].items():
+                rows, cols = detail["actual_shape"]
+                erows, ecols = detail["expected_min_shape"]
+                status = "OK" if detail["authentic"] else "TOO SMALL (synthetic/truncated)"
+                lines.append(
+                    f"| `{tname}` | {rows:,} x {cols} | {erows:,} x {ecols} | {status} |"
+                )
+            lines.append("")
+
         # 1. Overview Table of Loaded Files
         lines.append("## 1. Dataset Overview & Memory Footprint\n")
         lines.append(
@@ -515,9 +641,10 @@ class HomeCreditDataLoader:
             total_init_mem += init_m
             total_final_mem += final_m
             total_rows += len(df)
+            saved_mb = max(0.0, init_m - final_m)
 
             lines.append(
-                f"| `{tname}` | {len(df):,} | {df.shape[1]} | {init_m:.2f} MB | {final_m:.2f} MB | -{saved_pct:.1f}% |"
+                f"| `{tname}` | {len(df):,} | {df.shape[1]} | {init_m:.2f} MB | {final_m:.2f} MB | {saved_mb:.2f} MB (-{saved_pct:.1f}%) |"
             )
 
         total_savings = (
@@ -526,8 +653,21 @@ class HomeCreditDataLoader:
             else 0.0
         )
         lines.append(
-            f"| **TOTAL** | **{total_rows:,}** | - | **{total_init_mem:.2f} MB** | **{total_final_mem:.2f} MB** | **-{total_savings:.1f}%** |\n"
+            f"| **TOTAL** | **{total_rows:,}** | - | **{total_init_mem:.2f} MB** | **{total_final_mem:.2f} MB** | **{max(0.0, total_init_mem - total_final_mem):.2f} MB (-{total_savings:.1f}%)** |\n"
         )
+
+        # 1b. Categorical columns created by downcasting
+        cat_lines = []
+        for tname, df in self.tables.items():
+            cat_cols = [c for c in df.columns if isinstance(df[c].dtype, pd.CategoricalDtype)]
+            if cat_cols:
+                cat_lines.append(
+                    f"- `{tname}`: {len(cat_cols)} categorical column(s) - {', '.join(f'`{c}`' for c in cat_cols)}"
+                )
+        if cat_lines:
+            lines.append("### Categorical Columns (created during downcast)\n")
+            lines.extend(cat_lines)
+            lines.append("")
 
         # 2. Detailed Inspection of application_train
         if "application_train" in self.tables:
@@ -603,13 +743,20 @@ class HomeCreditDataLoader:
 
         # 5. Anomalies and Warnings
         lines.append("## 4. Warnings & Anomalies Detected\n")
+        if not authenticity["is_authentic"]:
+            # The message already carries its own [WARN] prefix
+            lines.append(f"- [CRITICAL] {authenticity['message'].replace('[WARN] ', '')}")
         if validation["warnings"]:
             for warn in validation["warnings"]:
                 lines.append(f"- [WARN] {warn}")
         else:
             lines.append("- [PASS] **No critical anomalies or key mismatches detected.** All foreign keys cleanly link to parent tables.")
 
-        lines.append("\n---\n*Report generated by `server/data_loader.py` - Ready for exploratory data analysis and feature engineering.*")
+        lines.append("\n---\n")
+        if authenticity["is_authentic"]:
+            lines.append("*Report generated by `server/data_loader.py` - Data validated. Ready for preprocessing and feature engineering.*")
+        else:
+            lines.append("*Report generated by `server/data_loader.py` - :warning: Data NOT ready for preprocessing: replace synthetic/truncated files with the real Kaggle dataset (`python server/fetch_data.py`).*")
 
         report_content = "\n".join(lines)
 

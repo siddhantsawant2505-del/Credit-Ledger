@@ -1,0 +1,374 @@
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+Fitting 5 folds for each of 25 candidates, totalling 125 fits
+Fitting 5 folds for each of 25 candidates, totalling 125 fits
+[CV] END C=1.844347898661638, class_weight=None, penalty=l2, solver=lbfgs; total time=  37.0s
+[CV] END C=1.844347898661638, class_weight=None, penalty=l2, solver=lbfgs; total time=  56.1s
+[CV] END C=5.996584841970366, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.4min
+[CV] END C=4.468327528535911, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 5.5min
+[CV] END C=7.090725777960454, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.6min
+[CV] END C=8.334426408004218, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.5min
+[CV] END C=0.017787658410143285, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.5min
+[CV] END C=6.126531604882809, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.7min
+[CV] END ......n_components=None, shrinkage=0.5, solver=lsqr; total time=   1.9s
+[CV] END ........n_components=1, shrinkage=0.25, solver=lsqr; total time=   1.4s
+[CV] END ........n_components=1, shrinkage=0.25, solver=lsqr; total time=   1.3s
+[CV] END .....n_components=None, shrinkage=0.5, solver=eigen; total time=   2.2s
+[CV] END .......n_components=1, shrinkage=auto, solver=eigen; total time=   4.7s
+[CV] END ........n_components=1, shrinkage=0.5, solver=eigen; total time=   1.8s
+[CV] END .....n_components=None, shrinkage=0.0, solver=eigen; total time=   1.9s
+[CV] END ........n_components=1, shrinkage=auto, solver=lsqr; total time=   2.1s
+[CV] END colsample_bytree=0.6685430534813132, learning_rate=0.19063571821788408, max_depth=5, n_estimators=371, reg_alpha=2.993292420985183, reg_lambda=1.982177084203147, subsample=0.6545980821176709; total time=  34.8s
+[CV] END colsample_bytree=0.5261376254756898, learning_rate=0.1745734676972377, max_depth=6, n_estimators=659, reg_alpha=3.540362888980227, reg_lambda=0.6955526958101232, subsample=0.939468448256698; total time= 1.1min
+[CV] END colsample_bytree=0.5103780912686371, learning_rate=0.10970718544909393, max_depth=9, n_estimators=469, reg_alpha=0.23332831606807714, reg_lambda=9.750677428993862, subsample=0.6814699691506064; total time= 1.7min
+[CV] END colsample_bytree=0.8061383923645009, learning_rate=0.09559485787421317, max_depth=4, n_estimators=687, reg_alpha=4.711008778424263, reg_lambda=5.851238069532624, subsample=0.7348957758889706; total time=  49.1s
+[CV] END colsample_bytree=0.5780140940784975, learning_rate=0.08430151543891574, max_depth=4, n_estimators=659, reg_alpha=3.7768070515882624, reg_lambda=4.5389808076668245, subsample=0.672779582003866; total time=  50.9s
+[CV] END colsample_bytree=0.7554651475189962, learning_rate=0.01594952556655613, max_depth=4, n_estimators=517, reg_alpha=2.248770666848828, reg_lambda=4.253927242017237, subsample=0.924330603027828; total time= 1.2min
+[CV] END colsample_bytree=0.8362940495618214, learning_rate=0.11254150515392515, max_depth=4, n_estimators=516, reg_alpha=1.4046725484369038, reg_lambda=5.65561279000336, subsample=0.6493234787411669; total time= 1.1min
+[CV] END colsample_bytree=0.8609886413393179, learning_rate=0.024164622299156457, max_depth=9, n_estimators=308, reg_alpha=3.861223846483287, reg_lambda=2.387798974574638, subsample=0.6019327409932608; total time= 2.5min
+[CV] END colsample_bytree=0.8669576428046754, learning_rate=0.14430289533104726, max_depth=5, n_estimators=588, reg_alpha=3.029799873905057, reg_lambda=9.299858345876816, subsample=0.8278769589256805; total time=  53.6s
+[CV] END colsample_bytree=0.8283227802521289, learning_rate=0.1311359195574905, max_depth=5, n_estimators=334, reg_alpha=2.3610746258097466, reg_lambda=1.636145336413866, subsample=0.8496356755280482; total time=  29.3s
+[CV] END colsample_bytree=0.5114386070348428, learning_rate=0.030499371128727845, max_depth=9, n_estimators=651, reg_alpha=3.182052056318902, reg_lambda=3.4863818202251036, subsample=0.7779997419076459; total time= 3.1min
+[CV] END colsample_bytree=0.5114386070348428, learning_rate=0.030499371128727845, max_depth=9, n_estimators=651, reg_alpha=3.182052056318902, reg_lambda=3.4863818202251036, subsample=0.7779997419076459; total time= 3.0min
+[CV] END colsample_bytree=0.9080727986955893, learning_rate=0.06170512738308071, max_depth=5, n_estimators=420, reg_alpha=4.090073829612465, reg_lambda=8.676940540935263, subsample=0.6024332456859167; total time=  45.4s
+[CV] END colsample_bytree=0.7298362861599046, learning_rate=0.08930809059826801, max_depth=7, n_estimators=524, reg_alpha=0.599326836668414, reg_lambda=3.7073441283344657, subsample=0.9300183963693817; total time= 1.3min
+[CV] END colsample_bytree=0.6454413194093398, learning_rate=0.10857021813123956, max_depth=3, n_estimators=479, reg_alpha=1.81814801189647, reg_lambda=9.731929785849127, subsample=0.9368565532297388; total time=  35.2s
+[CV] END colsample_bytree=0.6133020331214138, learning_rate=0.10447721611955323, max_depth=3, n_estimators=400, reg_alpha=1.424202471887338, reg_lambda=0.8504259998680616, subsample=0.8133475168929638; total time=  30.5s
+[CV] END colsample_bytree=0.7262055604529877, learning_rate=0.01978096273749798, max_depth=7, n_estimators=523, reg_alpha=4.541329429833269, reg_lambda=2.775837961336238, subsample=0.6507132052319281; total time= 1.0min
+[CV] END colsample_bytree=0.7066620013846402, learning_rate=0.07340463611641415, max_depth=11, n_estimators=451, num_leaves=22, reg_alpha=0.10292247147901223, reg_lambda=9.714143595538946, subsample=0.8913549242801475, subsample_freq=1; total time=  22.1s
+[CV] END colsample_bytree=0.5955525998052242, learning_rate=0.04454674376934912, max_depth=8, n_estimators=460, num_leaves=95, reg_alpha=3.0582658024414044, reg_lambda=0.5671298995873153, subsample=0.6080718487644955, subsample_freq=1; total time=  35.4s
+[CV] END colsample_bytree=0.6721078960702233, learning_rate=0.19681386830328976, max_depth=4, n_estimators=430, num_leaves=70, reg_alpha=3.4015376929388985, reg_lambda=4.779742893710658, subsample=0.6046427364059532, subsample_freq=1; total time=  15.8s
+[CV] END colsample_bytree=0.9239907900581837, learning_rate=0.11702476139065246, max_depth=5, n_estimators=564, num_leaves=109, reg_alpha=0.48836057003191935, reg_lambda=7.00021375186549, subsample=0.7540533728088604, subsample_freq=1; total time=  24.4s
+[CV] END colsample_bytree=0.5549172056801505, learning_rate=0.10408361292114134, max_depth=10, n_estimators=334, num_leaves=97, reg_alpha=1.955303037866204, reg_lambda=2.231242833986592, subsample=0.8643764936111783, subsample_freq=1; total time=  31.5s
+[CV] END colsample_bytree=0.6913201435210601, learning_rate=0.04950891594495588, max_depth=7, n_estimators=609, num_leaves=112, reg_alpha=4.847923138822793, reg_lambda=7.863761821930588, subsample=0.9288246295474661, subsample_freq=1; total time=  45.3s
+[CV] END colsample_bytree=0.8800402319051681, learning_rate=0.1519908209261024, max_depth=10, n_estimators=352, num_leaves=43, reg_alpha=1.7837666334679465, reg_lambda=3.1688778420301174, subsample=0.789943629105387, subsample_freq=1; total time=  23.0s
+[CV] END colsample_bytree=0.5634159012386432, learning_rate=0.16241742634326756, max_depth=4, n_estimators=644, num_leaves=90, reg_alpha=2.117007403531848, reg_lambda=4.251374422667912, subsample=0.7027208611513133, subsample_freq=1; total time=  27.2s
+[CV] END colsample_bytree=0.506335920221788, learning_rate=0.047780056776872984, max_depth=11, n_estimators=462, num_leaves=54, reg_alpha=3.8563517334297286, reg_lambda=1.2034241914738584, subsample=0.7254630049904953, subsample_freq=1; total time=  38.6s
+[CV] END colsample_bytree=0.7996650604778734, learning_rate=0.12234657966446814, max_depth=9, n_estimators=334, num_leaves=84, reg_alpha=1.914634373768949, reg_lambda=9.731264906196486, subsample=0.8971198384931294, subsample_freq=1; total time=  33.5s
+[CV] END colsample_bytree=0.8247782845241929, learning_rate=0.05483713475230159, max_depth=9, n_estimators=658, num_leaves=46, reg_alpha=2.6136641469099704, reg_lambda=4.561639674406221, subsample=0.6088966943604333, subsample_freq=1; total time=  40.3s
+[CV] END colsample_bytree=0.7719878206750177, learning_rate=0.11256980734731789, max_depth=8, n_estimators=335, num_leaves=32, reg_alpha=0.38489954914396496, reg_lambda=3.252638802680796, subsample=0.6564274505389015, subsample_freq=1; total time=  18.0s[CV] END C=1.844347898661638, class_weight=None, penalty=l2, solver=lbfgs; total time=  50.3s
+[CV] END C=5.996584841970366, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.4min
+[CV] END C=4.468327528535911, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 4.6min
+[CV] END C=3.347086111390218, class_weight=None, penalty=l2, solver=lbfgs; total time= 2.0min
+[CV] END C=0.5741157902710026, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.6min
+[CV] END C=8.334426408004218, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.8min
+[CV] END C=1.8440450985343382, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.0min
+[CV] END ......n_components=None, shrinkage=0.5, solver=lsqr; total time=   1.8s
+[CV] END .....n_components=None, shrinkage=auto, solver=lsqr; total time=   2.6s
+[CV] END ....n_components=None, shrinkage=0.75, solver=eigen; total time=   2.0s
+[CV] END .....n_components=None, shrinkage=0.5, solver=eigen; total time=   2.0s
+[CV] END ....n_components=None, shrinkage=auto, solver=eigen; total time=   4.5s
+[CV] END .....n_components=None, shrinkage=0.0, solver=eigen; total time=   1.8s
+[CV] END .....n_components=None, shrinkage=None, solver=lsqr; total time=   1.1s
+[CV] END colsample_bytree=0.6685430534813132, learning_rate=0.19063571821788408, max_depth=5, n_estimators=371, reg_alpha=2.993292420985183, reg_lambda=1.982177084203147, subsample=0.6545980821176709; total time=  35.0s
+[CV] END colsample_bytree=0.8745991883601898, learning_rate=0.05034443102887247, max_depth=6, n_estimators=576, reg_alpha=3.0874075481385828, reg_lambda=6.3107050246386684, subsample=0.6024732068269011; total time= 1.1min
+[CV] END colsample_bytree=0.5407728955397694, learning_rate=0.12749334177328658, max_depth=6, n_estimators=354, reg_alpha=4.916154429033941, reg_lambda=4.934247485855809, subsample=0.9009791423577121; total time=  37.1s
+[CV] END colsample_bytree=0.5407728955397694, learning_rate=0.12749334177328658, max_depth=6, n_estimators=354, reg_alpha=4.916154429033941, reg_lambda=4.934247485855809, subsample=0.9009791423577121; total time=  36.9s
+[CV] END colsample_bytree=0.8061383923645009, learning_rate=0.09559485787421317, max_depth=4, n_estimators=687, reg_alpha=4.711008778424263, reg_lambda=5.851238069532624, subsample=0.7348957758889706; total time=  48.4s
+[CV] END colsample_bytree=0.5780140940784975, learning_rate=0.08430151543891574, max_depth=4, n_estimators=659, reg_alpha=3.7768070515882624, reg_lambda=4.5389808076668245, subsample=0.672779582003866; total time=  46.0s
+[CV] END colsample_bytree=0.7554651475189962, learning_rate=0.01594952556655613, max_depth=4, n_estimators=517, reg_alpha=2.248770666848828, reg_lambda=4.253927242017237, subsample=0.924330603027828; total time= 1.1min
+[CV] END colsample_bytree=0.8272723981353893, learning_rate=0.07204274607310872, max_depth=8, n_estimators=514, reg_alpha=2.6041713001291185, reg_lambda=9.631134231318816, subsample=0.8955868470373529; total time= 3.0min
+[CV] END colsample_bytree=0.8669576428046754, learning_rate=0.14430289533104726, max_depth=5, n_estimators=588, reg_alpha=3.029799873905057, reg_lambda=9.299858345876816, subsample=0.8278769589256805; total time= 1.2min
+[CV] END colsample_bytree=0.8669576428046754, learning_rate=0.14430289533104726, max_depth=5, n_estimators=588, reg_alpha=3.029799873905057, reg_lambda=9.299858345876816, subsample=0.8278769589256805; total time=  51.4s
+[CV] END colsample_bytree=0.8283227802521289, learning_rate=0.1311359195574905, max_depth=5, n_estimators=334, reg_alpha=2.3610746258097466, reg_lambda=1.636145336413866, subsample=0.8496356755280482; total time=  30.3s
+[CV] END colsample_bytree=0.5114386070348428, learning_rate=0.030499371128727845, max_depth=9, n_estimators=651, reg_alpha=3.182052056318902, reg_lambda=3.4863818202251036, subsample=0.7779997419076459; total time= 3.1min
+[CV] END colsample_bytree=0.9084049132667419, learning_rate=0.057365523538286244, max_depth=7, n_estimators=442, reg_alpha=3.7777556927152434, reg_lambda=2.6735825721704134, subsample=0.6269429684400776; total time= 1.5min
+[CV] END colsample_bytree=0.6303881538111956, learning_rate=0.04063204457826084, max_depth=4, n_estimators=469, reg_alpha=4.040601897822085, reg_lambda=6.517335686849023, subsample=0.9050112065657012; total time=  49.7s
+[CV] END colsample_bytree=0.8616524346046015, learning_rate=0.04544831118834681, max_depth=8, n_estimators=630, reg_alpha=1.62172510502637, reg_lambda=1.659835569656397, subsample=0.7247042433269412; total time= 2.3min
+[CV] END colsample_bytree=0.6454413194093398, learning_rate=0.10857021813123956, max_depth=3, n_estimators=479, reg_alpha=1.81814801189647, reg_lambda=9.731929785849127, subsample=0.9368565532297388; total time=  34.6s
+[CV] END colsample_bytree=0.6454413194093398, learning_rate=0.10857021813123956, max_depth=3, n_estimators=479, reg_alpha=1.81814801189647, reg_lambda=9.731929785849127, subsample=0.9368565532297388; total time=  35.9s
+[CV] END colsample_bytree=0.7262055604529877, learning_rate=0.01978096273749798, max_depth=7, n_estimators=523, reg_alpha=4.541329429833269, reg_lambda=2.775837961336238, subsample=0.6507132052319281; total time= 1.2min
+[CV] END colsample_bytree=0.7066620013846402, learning_rate=0.07340463611641415, max_depth=11, n_estimators=451, num_leaves=22, reg_alpha=0.10292247147901223, reg_lambda=9.714143595538946, subsample=0.8913549242801475, subsample_freq=1; total time=  22.4s
+[CV] END colsample_bytree=0.5955525998052242, learning_rate=0.04454674376934912, max_depth=8, n_estimators=460, num_leaves=95, reg_alpha=3.0582658024414044, reg_lambda=0.5671298995873153, subsample=0.6080718487644955, subsample_freq=1; total time=  34.6s
+[CV] END colsample_bytree=0.6721078960702233, learning_rate=0.19681386830328976, max_depth=4, n_estimators=430, num_leaves=70, reg_alpha=3.4015376929388985, reg_lambda=4.779742893710658, subsample=0.6046427364059532, subsample_freq=1; total time=  15.9s
+[CV] END colsample_bytree=0.6721078960702233, learning_rate=0.19681386830328976, max_depth=4, n_estimators=430, num_leaves=70, reg_alpha=3.4015376929388985, reg_lambda=4.779742893710658, subsample=0.6046427364059532, subsample_freq=1; total time=  14.3s
+[CV] END colsample_bytree=0.9239907900581837, learning_rate=0.11702476139065246, max_depth=5, n_estimators=564, num_leaves=109, reg_alpha=0.48836057003191935, reg_lambda=7.00021375186549, subsample=0.7540533728088604, subsample_freq=1; total time=  23.6s
+[CV] END colsample_bytree=0.6913201435210601, learning_rate=0.04950891594495588, max_depth=7, n_estimators=609, num_leaves=112, reg_alpha=4.847923138822793, reg_lambda=7.863761821930588, subsample=0.9288246295474661, subsample_freq=1; total time=  44.4s
+[CV] END colsample_bytree=0.902672307692442, learning_rate=0.12360099597410618, max_depth=11, n_estimators=570, num_leaves=91, reg_alpha=2.852219872026997, reg_lambda=5.447925470245325, subsample=0.9364102085222721, subsample_freq=1; total time=  53.3s
+[CV] END colsample_bytree=0.506335920221788, learning_rate=0.047780056776872984, max_depth=11, n_estimators=462, num_leaves=54, reg_alpha=3.8563517334297286, reg_lambda=1.2034241914738584, subsample=0.7254630049904953, subsample_freq=1; total time=  38.6s
+[CV] END colsample_bytree=0.5521410767863084, learning_rate=0.1739896509163628, max_depth=11, n_estimators=567, num_leaves=53, reg_alpha=0.47705058245205656, reg_lambda=4.02277339588353, subsample=0.8340944384322625, subsample_freq=1; total time=  41.8s
+[CV] END colsample_bytree=0.8247782845241929, learning_rate=0.05483713475230159, max_depth=9, n_estimators=658, num_leaves=46, reg_alpha=2.6136641469099704, reg_lambda=4.561639674406221, subsample=0.6088966943604333, subsample_freq=1; total time=  47.4s
+[CV] END colsample_bytree=0.7719878206750177, learning_rate=0.11256980734731789, max_depth=8, n_estimators=335, num_leaves=32, reg_alpha=0.38489954914396496, reg_lambda=3.252638802680796, subsample=0.6564274505389015, subsample_freq=1; total time=  20.3s
+[CV] END colsample_bytree=0.918363943554158, learning_rate=0.16354287211723922, max_depth=4, n_estimators=433, num_leaves=47, reg_alpha=4.018360384495573, reg_lambda=2.2724155594173405, subsample=0.9123956494714922, subsample_freq=1; total time=  17.0s[CV] END C=3.7554011884736247, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.5min
+[CV] END C=4.468327528535911, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 4.1min
+[CV] END C=3.347086111390218, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.6min
+[CV] END C=7.090725777960454, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.6min
+[CV] END C=0.5741157902710026, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.9min
+[CV] END C=0.017787658410143285, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.3min
+[CV] END C=1.8440450985343382, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.2min
+[CV] END ......n_components=None, shrinkage=0.5, solver=lsqr; total time=   1.8s
+[CV] END .....n_components=None, shrinkage=auto, solver=lsqr; total time=   2.8s
+[CV] END ....n_components=None, shrinkage=0.75, solver=eigen; total time=   2.2s
+[CV] END .......n_components=1, shrinkage=auto, solver=eigen; total time=   4.5s
+[CV] END ........n_components=1, shrinkage=0.5, solver=eigen; total time=   1.7s
+[CV] END .....n_components=None, shrinkage=0.0, solver=eigen; total time=   1.8s
+[CV] END .....n_components=None, shrinkage=None, solver=lsqr; total time=   1.1s
+[CV] END ........n_components=1, shrinkage=auto, solver=lsqr; total time=   1.8s
+[CV] END colsample_bytree=0.5261376254756898, learning_rate=0.1745734676972377, max_depth=6, n_estimators=659, reg_alpha=3.540362888980227, reg_lambda=0.6955526958101232, subsample=0.939468448256698; total time= 1.1min
+[CV] END colsample_bytree=0.5103780912686371, learning_rate=0.10970718544909393, max_depth=9, n_estimators=469, reg_alpha=0.23332831606807714, reg_lambda=9.750677428993862, subsample=0.6814699691506064; total time= 1.7min
+[CV] END colsample_bytree=0.5407728955397694, learning_rate=0.12749334177328658, max_depth=6, n_estimators=354, reg_alpha=4.916154429033941, reg_lambda=4.934247485855809, subsample=0.9009791423577121; total time=  37.7s
+[CV] END colsample_bytree=0.5071848134990964, learning_rate=0.05386982686820831, max_depth=6, n_estimators=666, reg_alpha=3.416317594127291, reg_lambda=6.294968248934898, subsample=0.8916182191076575; total time= 1.0min
+[CV] END colsample_bytree=0.7554651475189962, learning_rate=0.01594952556655613, max_depth=4, n_estimators=517, reg_alpha=2.248770666848828, reg_lambda=4.253927242017237, subsample=0.924330603027828; total time= 1.0min
+[CV] END colsample_bytree=0.8272723981353893, learning_rate=0.07204274607310872, max_depth=8, n_estimators=514, reg_alpha=2.6041713001291185, reg_lambda=9.631134231318816, subsample=0.8955868470373529; total time= 3.1min
+[CV] END colsample_bytree=0.8669576428046754, learning_rate=0.14430289533104726, max_depth=5, n_estimators=588, reg_alpha=3.029799873905057, reg_lambda=9.299858345876816, subsample=0.8278769589256805; total time= 1.4min
+[CV] END colsample_bytree=0.9117318539947014, learning_rate=0.1715073297800619, max_depth=6, n_estimators=332, reg_alpha=0.3177917514301182, reg_lambda=3.454332056298791, subsample=0.7138141627093615; total time=  37.1s
+[CV] END colsample_bytree=0.8283227802521289, learning_rate=0.1311359195574905, max_depth=5, n_estimators=334, reg_alpha=2.3610746258097466, reg_lambda=1.636145336413866, subsample=0.8496356755280482; total time=  28.9s
+[CV] END colsample_bytree=0.8423532718776039, learning_rate=0.11664266753820428, max_depth=9, n_estimators=697, reg_alpha=2.4689779818219537, reg_lambda=5.465961879128944, subsample=0.7496393564254924; total time= 4.1min
+[CV] END colsample_bytree=0.6303881538111956, learning_rate=0.04063204457826084, max_depth=4, n_estimators=469, reg_alpha=4.040601897822085, reg_lambda=6.517335686849023, subsample=0.9050112065657012; total time=  46.9s
+[CV] END colsample_bytree=0.6303881538111956, learning_rate=0.04063204457826084, max_depth=4, n_estimators=469, reg_alpha=4.040601897822085, reg_lambda=6.517335686849023, subsample=0.9050112065657012; total time=  49.8s
+[CV] END colsample_bytree=0.8616524346046015, learning_rate=0.04544831118834681, max_depth=8, n_estimators=630, reg_alpha=1.62172510502637, reg_lambda=1.659835569656397, subsample=0.7247042433269412; total time= 2.3min
+[CV] END colsample_bytree=0.6454413194093398, learning_rate=0.10857021813123956, max_depth=3, n_estimators=479, reg_alpha=1.81814801189647, reg_lambda=9.731929785849127, subsample=0.9368565532297388; total time=  35.9s
+[CV] END colsample_bytree=0.6133020331214138, learning_rate=0.10447721611955323, max_depth=3, n_estimators=400, reg_alpha=1.424202471887338, reg_lambda=0.8504259998680616, subsample=0.8133475168929638; total time=  30.3s
+[CV] END colsample_bytree=0.7262055604529877, learning_rate=0.01978096273749798, max_depth=7, n_estimators=523, reg_alpha=4.541329429833269, reg_lambda=2.775837961336238, subsample=0.6507132052319281; total time= 1.2min
+[CV] END colsample_bytree=0.7066620013846402, learning_rate=0.07340463611641415, max_depth=11, n_estimators=451, num_leaves=22, reg_alpha=0.10292247147901223, reg_lambda=9.714143595538946, subsample=0.8913549242801475, subsample_freq=1; total time=  23.8s
+[CV] END colsample_bytree=0.7361485971162751, learning_rate=0.08597358462589853, max_depth=11, n_estimators=487, num_leaves=99, reg_alpha=1.1638567021515211, reg_lambda=1.3607611280617977, subsample=0.8164351032665805, subsample_freq=1; total time=  50.0s
+[CV] END colsample_bytree=0.9239907900581837, learning_rate=0.11702476139065246, max_depth=5, n_estimators=564, num_leaves=109, reg_alpha=0.48836057003191935, reg_lambda=7.00021375186549, subsample=0.7540533728088604, subsample_freq=1; total time=  24.4s
+[CV] END colsample_bytree=0.5549172056801505, learning_rate=0.10408361292114134, max_depth=10, n_estimators=334, num_leaves=97, reg_alpha=1.955303037866204, reg_lambda=2.231242833986592, subsample=0.8643764936111783, subsample_freq=1; total time=  31.8s
+[CV] END colsample_bytree=0.902672307692442, learning_rate=0.12360099597410618, max_depth=11, n_estimators=570, num_leaves=91, reg_alpha=2.852219872026997, reg_lambda=5.447925470245325, subsample=0.9364102085222721, subsample_freq=1; total time=  52.3s
+[CV] END colsample_bytree=0.8800402319051681, learning_rate=0.1519908209261024, max_depth=10, n_estimators=352, num_leaves=43, reg_alpha=1.7837666334679465, reg_lambda=3.1688778420301174, subsample=0.789943629105387, subsample_freq=1; total time=  27.5s
+[CV] END colsample_bytree=0.506335920221788, learning_rate=0.047780056776872984, max_depth=11, n_estimators=462, num_leaves=54, reg_alpha=3.8563517334297286, reg_lambda=1.2034241914738584, subsample=0.7254630049904953, subsample_freq=1; total time=  38.4s
+[CV] END colsample_bytree=0.5521410767863084, learning_rate=0.1739896509163628, max_depth=11, n_estimators=567, num_leaves=53, reg_alpha=0.47705058245205656, reg_lambda=4.02277339588353, subsample=0.8340944384322625, subsample_freq=1; total time=  42.1s
+[CV] END colsample_bytree=0.8247782845241929, learning_rate=0.05483713475230159, max_depth=9, n_estimators=658, num_leaves=46, reg_alpha=2.6136641469099704, reg_lambda=4.561639674406221, subsample=0.6088966943604333, subsample_freq=1; total time=  40.2s
+[CV] END colsample_bytree=0.7719878206750177, learning_rate=0.11256980734731789, max_depth=8, n_estimators=335, num_leaves=32, reg_alpha=0.38489954914396496, reg_lambda=3.252638802680796, subsample=0.6564274505389015, subsample_freq=1; total time=  18.1s
+[CV] END colsample_bytree=0.7719878206750177, learning_rate=0.11256980734731789, max_depth=8, n_estimators=335, num_leaves=32, reg_alpha=0.38489954914396496, reg_lambda=3.252638802680796, subsample=0.6564274505389015, subsample_freq=1; total time=  19.7s
+[CV] END colsample_bytree=0.7427040088620428, learning_rate=0.16341362948117188, max_depth=7, n_estimators=530, num_leaves=81, reg_alpha=0.5502596226383838, reg_lambda=2.665384044148446, subsample=0.7494877260191897, subsample_freq=1; total time=  35.1s
+[CV] END colsample_bytree=0.8681066446651219, learning_rate=0.17353881081870526, max_depth=10, n_estimators=497, num_leaves=91, reg_alpha=2.6704470968772096, reg_lambda=5.1058847279103405, subsample=0.8423526115115946, subsample_freq=1; total time=  47.7s[CV] END C=3.7554011884736247, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.2min
+[CV] END C=5.996584841970366, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.1min
+[CV] END C=0.5908361216819946, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.8min
+[CV] END C=0.5908361216819946, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.8min
+[CV] END C=7.090725777960454, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.7min
+[CV] END C=0.5741157902710026, class_weight=None, penalty=l2, solver=lbfgs; total time= 2.0min
+[CV] END C=0.017787658410143285, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.6min
+[CV] END C=6.126531604882809, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 3.3min
+[CV] END ......n_components=None, shrinkage=0.5, solver=lsqr; total time=   1.7s
+[CV] END .........n_components=1, shrinkage=0.0, solver=lsqr; total time=   1.4s
+[CV] END ........n_components=1, shrinkage=0.25, solver=lsqr; total time=   1.3s
+[CV] END ....n_components=None, shrinkage=0.75, solver=eigen; total time=   2.0s
+[CV] END .....n_components=None, shrinkage=0.5, solver=eigen; total time=   1.9s
+[CV] END ....n_components=None, shrinkage=auto, solver=eigen; total time=   4.5s
+[CV] END ........n_components=1, shrinkage=0.5, solver=eigen; total time=   2.0s
+[CV] END .....n_components=None, shrinkage=None, solver=lsqr; total time=   1.1s
+[CV] END ........n_components=1, shrinkage=auto, solver=lsqr; total time=   1.9s
+[CV] END colsample_bytree=0.5261376254756898, learning_rate=0.1745734676972377, max_depth=6, n_estimators=659, reg_alpha=3.540362888980227, reg_lambda=0.6955526958101232, subsample=0.939468448256698; total time= 1.1min
+[CV] END colsample_bytree=0.8745991883601898, learning_rate=0.05034443102887247, max_depth=6, n_estimators=576, reg_alpha=3.0874075481385828, reg_lambda=6.3107050246386684, subsample=0.6024732068269011; total time= 1.1min
+[CV] END colsample_bytree=0.5407728955397694, learning_rate=0.12749334177328658, max_depth=6, n_estimators=354, reg_alpha=4.916154429033941, reg_lambda=4.934247485855809, subsample=0.9009791423577121; total time=  38.4s
+[CV] END colsample_bytree=0.8061383923645009, learning_rate=0.09559485787421317, max_depth=4, n_estimators=687, reg_alpha=4.711008778424263, reg_lambda=5.851238069532624, subsample=0.7348957758889706; total time=  48.8s
+[CV] END colsample_bytree=0.5071848134990964, learning_rate=0.05386982686820831, max_depth=6, n_estimators=666, reg_alpha=3.416317594127291, reg_lambda=6.294968248934898, subsample=0.8916182191076575; total time= 1.1min
+[CV] END colsample_bytree=0.7554651475189962, learning_rate=0.01594952556655613, max_depth=4, n_estimators=517, reg_alpha=2.248770666848828, reg_lambda=4.253927242017237, subsample=0.924330603027828; total time= 1.3min
+[CV] END colsample_bytree=0.8362940495618214, learning_rate=0.11254150515392515, max_depth=4, n_estimators=516, reg_alpha=1.4046725484369038, reg_lambda=5.65561279000336, subsample=0.6493234787411669; total time=  53.3s
+[CV] END colsample_bytree=0.8362940495618214, learning_rate=0.11254150515392515, max_depth=4, n_estimators=516, reg_alpha=1.4046725484369038, reg_lambda=5.65561279000336, subsample=0.6493234787411669; total time= 1.0min
+[CV] END colsample_bytree=0.8609886413393179, learning_rate=0.024164622299156457, max_depth=9, n_estimators=308, reg_alpha=3.861223846483287, reg_lambda=2.387798974574638, subsample=0.6019327409932608; total time= 2.2min
+[CV] END colsample_bytree=0.9117318539947014, learning_rate=0.1715073297800619, max_depth=6, n_estimators=332, reg_alpha=0.3177917514301182, reg_lambda=3.454332056298791, subsample=0.7138141627093615; total time=  37.6s
+[CV] END colsample_bytree=0.8423532718776039, learning_rate=0.11664266753820428, max_depth=9, n_estimators=697, reg_alpha=2.4689779818219537, reg_lambda=5.465961879128944, subsample=0.7496393564254924; total time= 4.1min
+[CV] END colsample_bytree=0.9084049132667419, learning_rate=0.057365523538286244, max_depth=7, n_estimators=442, reg_alpha=3.7777556927152434, reg_lambda=2.6735825721704134, subsample=0.6269429684400776; total time= 1.6min
+[CV] END colsample_bytree=0.8616524346046015, learning_rate=0.04544831118834681, max_depth=8, n_estimators=630, reg_alpha=1.62172510502637, reg_lambda=1.659835569656397, subsample=0.7247042433269412; total time= 2.4min
+[CV] END colsample_bytree=0.7298362861599046, learning_rate=0.08930809059826801, max_depth=7, n_estimators=524, reg_alpha=0.599326836668414, reg_lambda=3.7073441283344657, subsample=0.9300183963693817; total time= 1.3min
+[CV] END colsample_bytree=0.6133020331214138, learning_rate=0.10447721611955323, max_depth=3, n_estimators=400, reg_alpha=1.424202471887338, reg_lambda=0.8504259998680616, subsample=0.8133475168929638; total time=  29.8s
+[CV] END colsample_bytree=0.6685430534813132, learning_rate=0.19063571821788408, max_depth=6, n_estimators=371, num_leaves=80, reg_alpha=2.984250789732435, reg_lambda=4.735411152109116, subsample=0.634991220536301, subsample_freq=1; total time=  20.0s
+[CV] END colsample_bytree=0.7066620013846402, learning_rate=0.07340463611641415, max_depth=11, n_estimators=451, num_leaves=22, reg_alpha=0.10292247147901223, reg_lambda=9.714143595538946, subsample=0.8913549242801475, subsample_freq=1; total time=  24.0s
+[CV] END colsample_bytree=0.7361485971162751, learning_rate=0.08597358462589853, max_depth=11, n_estimators=487, num_leaves=99, reg_alpha=1.1638567021515211, reg_lambda=1.3607611280617977, subsample=0.8164351032665805, subsample_freq=1; total time=  49.5s
+[CV] END colsample_bytree=0.5549172056801505, learning_rate=0.10408361292114134, max_depth=10, n_estimators=334, num_leaves=97, reg_alpha=1.955303037866204, reg_lambda=2.231242833986592, subsample=0.8643764936111783, subsample_freq=1; total time=  31.9s
+[CV] END colsample_bytree=0.6913201435210601, learning_rate=0.04950891594495588, max_depth=7, n_estimators=609, num_leaves=112, reg_alpha=4.847923138822793, reg_lambda=7.863761821930588, subsample=0.9288246295474661, subsample_freq=1; total time=  45.3s
+[CV] END colsample_bytree=0.8800402319051681, learning_rate=0.1519908209261024, max_depth=10, n_estimators=352, num_leaves=43, reg_alpha=1.7837666334679465, reg_lambda=3.1688778420301174, subsample=0.789943629105387, subsample_freq=1; total time=  23.1s
+[CV] END colsample_bytree=0.5634159012386432, learning_rate=0.16241742634326756, max_depth=4, n_estimators=644, num_leaves=90, reg_alpha=2.117007403531848, reg_lambda=4.251374422667912, subsample=0.7027208611513133, subsample_freq=1; total time=  31.7s
+[CV] END colsample_bytree=0.5521410767863084, learning_rate=0.1739896509163628, max_depth=11, n_estimators=567, num_leaves=53, reg_alpha=0.47705058245205656, reg_lambda=4.02277339588353, subsample=0.8340944384322625, subsample_freq=1; total time=  42.1s
+[CV] END colsample_bytree=0.7996650604778734, learning_rate=0.12234657966446814, max_depth=9, n_estimators=334, num_leaves=84, reg_alpha=1.914634373768949, reg_lambda=9.731264906196486, subsample=0.8971198384931294, subsample_freq=1; total time=  34.1s
+[CV] END colsample_bytree=0.548551142146987, learning_rate=0.015971545280479508, max_depth=10, n_estimators=540, num_leaves=71, reg_alpha=2.8163778598819182, reg_lambda=7.107402821048211, subsample=0.6487660090420565, subsample_freq=1; total time=  48.3s
+[CV] END colsample_bytree=0.918363943554158, learning_rate=0.16354287211723922, max_depth=4, n_estimators=433, num_leaves=47, reg_alpha=4.018360384495573, reg_lambda=2.2724155594173405, subsample=0.9123956494714922, subsample_freq=1; total time=  17.4s
+[CV] END colsample_bytree=0.7427040088620428, learning_rate=0.16341362948117188, max_depth=7, n_estimators=530, num_leaves=81, reg_alpha=0.5502596226383838, reg_lambda=2.665384044148446, subsample=0.7494877260191897, subsample_freq=1; total time=  40.3s
+[CV] END colsample_bytree=0.8681066446651219, learning_rate=0.17353881081870526, max_depth=10, n_estimators=497, num_leaves=91, reg_alpha=2.6704470968772096, reg_lambda=5.1058847279103405, subsample=0.8423526115115946, subsample_freq=1; total time=  48.3s[CV] END C=3.7554011884736247, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.6min
+[CV] END C=4.468327528535911, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 3.7min
+[CV] END C=0.5908361216819946, class_weight=None, penalty=l2, solver=lbfgs; total time= 2.9min
+[CV] END C=7.090725777960454, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.9min
+[CV] END C=8.334426408004218, class_weight=None, penalty=l2, solver=lbfgs; total time= 2.0min
+[CV] END C=1.8440450985343382, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.1min
+[CV] END C=6.126531604882809, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 3.0min
+[CV] END .........n_components=1, shrinkage=0.0, solver=lsqr; total time=   1.8s
+[CV] END .....n_components=None, shrinkage=auto, solver=lsqr; total time=   2.8s
+[CV] END .....n_components=None, shrinkage=0.5, solver=eigen; total time=   2.3s
+[CV] END .......n_components=1, shrinkage=auto, solver=eigen; total time=   4.6s
+[CV] END ........n_components=1, shrinkage=0.5, solver=eigen; total time=   1.9s
+[CV] END .....n_components=None, shrinkage=0.0, solver=eigen; total time=   1.9s
+[CV] END ........n_components=1, shrinkage=auto, solver=lsqr; total time=   2.2s
+[CV] END colsample_bytree=0.6685430534813132, learning_rate=0.19063571821788408, max_depth=5, n_estimators=371, reg_alpha=2.993292420985183, reg_lambda=1.982177084203147, subsample=0.6545980821176709; total time=  34.8s
+[CV] END colsample_bytree=0.5261376254756898, learning_rate=0.1745734676972377, max_depth=6, n_estimators=659, reg_alpha=3.540362888980227, reg_lambda=0.6955526958101232, subsample=0.939468448256698; total time= 1.1min
+[CV] END colsample_bytree=0.5103780912686371, learning_rate=0.10970718544909393, max_depth=9, n_estimators=469, reg_alpha=0.23332831606807714, reg_lambda=9.750677428993862, subsample=0.6814699691506064; total time= 1.7min
+[CV] END colsample_bytree=0.8061383923645009, learning_rate=0.09559485787421317, max_depth=4, n_estimators=687, reg_alpha=4.711008778424263, reg_lambda=5.851238069532624, subsample=0.7348957758889706; total time=  48.5s
+[CV] END colsample_bytree=0.5780140940784975, learning_rate=0.08430151543891574, max_depth=4, n_estimators=659, reg_alpha=3.7768070515882624, reg_lambda=4.5389808076668245, subsample=0.672779582003866; total time=  56.1s
+[CV] END colsample_bytree=0.8272723981353893, learning_rate=0.07204274607310872, max_depth=8, n_estimators=514, reg_alpha=2.6041713001291185, reg_lambda=9.631134231318816, subsample=0.8955868470373529; total time= 3.1min
+[CV] END colsample_bytree=0.8609886413393179, learning_rate=0.024164622299156457, max_depth=9, n_estimators=308, reg_alpha=3.861223846483287, reg_lambda=2.387798974574638, subsample=0.6019327409932608; total time= 2.1min
+[CV] END colsample_bytree=0.8283227802521289, learning_rate=0.1311359195574905, max_depth=5, n_estimators=334, reg_alpha=2.3610746258097466, reg_lambda=1.636145336413866, subsample=0.8496356755280482; total time=  29.1s
+[CV] END colsample_bytree=0.8423532718776039, learning_rate=0.11664266753820428, max_depth=9, n_estimators=697, reg_alpha=2.4689779818219537, reg_lambda=5.465961879128944, subsample=0.7496393564254924; total time= 4.0min
+[CV] END colsample_bytree=0.9084049132667419, learning_rate=0.057365523538286244, max_depth=7, n_estimators=442, reg_alpha=3.7777556927152434, reg_lambda=2.6735825721704134, subsample=0.6269429684400776; total time= 1.5min
+[CV] END colsample_bytree=0.6303881538111956, learning_rate=0.04063204457826084, max_depth=4, n_estimators=469, reg_alpha=4.040601897822085, reg_lambda=6.517335686849023, subsample=0.9050112065657012; total time=  49.6s
+[CV] END colsample_bytree=0.8616524346046015, learning_rate=0.04544831118834681, max_depth=8, n_estimators=630, reg_alpha=1.62172510502637, reg_lambda=1.659835569656397, subsample=0.7247042433269412; total time= 2.3min
+[CV] END colsample_bytree=0.6454413194093398, learning_rate=0.10857021813123956, max_depth=3, n_estimators=479, reg_alpha=1.81814801189647, reg_lambda=9.731929785849127, subsample=0.9368565532297388; total time=  35.8s
+[CV] END colsample_bytree=0.6133020331214138, learning_rate=0.10447721611955323, max_depth=3, n_estimators=400, reg_alpha=1.424202471887338, reg_lambda=0.8504259998680616, subsample=0.8133475168929638; total time=  30.3s
+[CV] END colsample_bytree=0.6685430534813132, learning_rate=0.19063571821788408, max_depth=6, n_estimators=371, num_leaves=80, reg_alpha=2.984250789732435, reg_lambda=4.735411152109116, subsample=0.634991220536301, subsample_freq=1; total time=  19.8s
+[CV] END colsample_bytree=0.7066620013846402, learning_rate=0.07340463611641415, max_depth=11, n_estimators=451, num_leaves=22, reg_alpha=0.10292247147901223, reg_lambda=9.714143595538946, subsample=0.8913549242801475, subsample_freq=1; total time=  21.5s
+[CV] END colsample_bytree=0.7361485971162751, learning_rate=0.08597358462589853, max_depth=11, n_estimators=487, num_leaves=99, reg_alpha=1.1638567021515211, reg_lambda=1.3607611280617977, subsample=0.8164351032665805, subsample_freq=1; total time=  49.7s
+[CV] END colsample_bytree=0.9239907900581837, learning_rate=0.11702476139065246, max_depth=5, n_estimators=564, num_leaves=109, reg_alpha=0.48836057003191935, reg_lambda=7.00021375186549, subsample=0.7540533728088604, subsample_freq=1; total time=  29.0s
+[CV] END colsample_bytree=0.6913201435210601, learning_rate=0.04950891594495588, max_depth=7, n_estimators=609, num_leaves=112, reg_alpha=4.847923138822793, reg_lambda=7.863761821930588, subsample=0.9288246295474661, subsample_freq=1; total time=  44.6s
+[CV] END colsample_bytree=0.8800402319051681, learning_rate=0.1519908209261024, max_depth=10, n_estimators=352, num_leaves=43, reg_alpha=1.7837666334679465, reg_lambda=3.1688778420301174, subsample=0.789943629105387, subsample_freq=1; total time=  28.0s
+[CV] END colsample_bytree=0.5634159012386432, learning_rate=0.16241742634326756, max_depth=4, n_estimators=644, num_leaves=90, reg_alpha=2.117007403531848, reg_lambda=4.251374422667912, subsample=0.7027208611513133, subsample_freq=1; total time=  32.6s
+[CV] END colsample_bytree=0.506335920221788, learning_rate=0.047780056776872984, max_depth=11, n_estimators=462, num_leaves=54, reg_alpha=3.8563517334297286, reg_lambda=1.2034241914738584, subsample=0.7254630049904953, subsample_freq=1; total time=  38.8s
+[CV] END colsample_bytree=0.7996650604778734, learning_rate=0.12234657966446814, max_depth=9, n_estimators=334, num_leaves=84, reg_alpha=1.914634373768949, reg_lambda=9.731264906196486, subsample=0.8971198384931294, subsample_freq=1; total time=  34.0s
+[CV] END colsample_bytree=0.548551142146987, learning_rate=0.015971545280479508, max_depth=10, n_estimators=540, num_leaves=71, reg_alpha=2.8163778598819182, reg_lambda=7.107402821048211, subsample=0.6487660090420565, subsample_freq=1; total time=  48.7s
+[CV] END colsample_bytree=0.7719878206750177, learning_rate=0.11256980734731789, max_depth=8, n_estimators=335, num_leaves=32, reg_alpha=0.38489954914396496, reg_lambda=3.252638802680796, subsample=0.6564274505389015, subsample_freq=1; total time=  17.7s
+[CV] END colsample_bytree=0.918363943554158, learning_rate=0.16354287211723922, max_depth=4, n_estimators=433, num_leaves=47, reg_alpha=4.018360384495573, reg_lambda=2.2724155594173405, subsample=0.9123956494714922, subsample_freq=1; total time=  16.9s
+[CV] END colsample_bytree=0.8681066446651219, learning_rate=0.17353881081870526, max_depth=10, n_estimators=497, num_leaves=91, reg_alpha=2.6704470968772096, reg_lambda=5.1058847279103405, subsample=0.8423526115115946, subsample_freq=1; total time=  49.3s
+[CV] END colsample_bytree=0.6212355502093346, learning_rate=0.05638384922707709, max_depth=6, n_estimators=673, num_leaves=51, reg_alpha=2.5939531087168306, reg_lambda=7.17868010950419, subsample=0.7272703608327529, subsample_freq=1; total time=  38.4s
+[CV] END colsample_bytree=0.6200514564238783, learning_rate=0.19555684160820405, max_depth=7, n_estimators=353, num_leaves=106, reg_alpha=1.3932323211830573, reg_lambda=9.128525916683211, subsample=0.6838466617334403, subsample_freq=1; total time= 1.7min[CV] END C=3.7554011884736247, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.4min
+[CV] END C=5.996584841970366, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 4.9min
+[CV] END C=3.347086111390218, class_weight=None, penalty=l2, solver=lbfgs; total time= 2.3min
+[CV] END C=0.5741157902710026, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.8min
+[CV] END C=0.017787658410143285, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.6min
+[CV] END C=1.8440450985343382, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.1min
+[CV] END ......n_components=None, shrinkage=0.5, solver=lsqr; total time=   1.9s
+[CV] END .....n_components=None, shrinkage=auto, solver=lsqr; total time=   2.8s
+[CV] END ....n_components=None, shrinkage=0.75, solver=eigen; total time=   2.1s
+[CV] END .......n_components=1, shrinkage=auto, solver=eigen; total time=   4.4s
+[CV] END ....n_components=None, shrinkage=auto, solver=eigen; total time=   4.2s
+[CV] END .....n_components=None, shrinkage=None, solver=lsqr; total time=   1.2s
+[CV] END colsample_bytree=0.6685430534813132, learning_rate=0.19063571821788408, max_depth=5, n_estimators=371, reg_alpha=2.993292420985183, reg_lambda=1.982177084203147, subsample=0.6545980821176709; total time=  35.4s
+[CV] END colsample_bytree=0.8745991883601898, learning_rate=0.05034443102887247, max_depth=6, n_estimators=576, reg_alpha=3.0874075481385828, reg_lambda=6.3107050246386684, subsample=0.6024732068269011; total time= 1.1min
+[CV] END colsample_bytree=0.5103780912686371, learning_rate=0.10970718544909393, max_depth=9, n_estimators=469, reg_alpha=0.23332831606807714, reg_lambda=9.750677428993862, subsample=0.6814699691506064; total time= 1.7min
+[CV] END colsample_bytree=0.5071848134990964, learning_rate=0.05386982686820831, max_depth=6, n_estimators=666, reg_alpha=3.416317594127291, reg_lambda=6.294968248934898, subsample=0.8916182191076575; total time= 1.1min
+[CV] END colsample_bytree=0.5780140940784975, learning_rate=0.08430151543891574, max_depth=4, n_estimators=659, reg_alpha=3.7768070515882624, reg_lambda=4.5389808076668245, subsample=0.672779582003866; total time= 1.1min
+[CV] END colsample_bytree=0.8272723981353893, learning_rate=0.07204274607310872, max_depth=8, n_estimators=514, reg_alpha=2.6041713001291185, reg_lambda=9.631134231318816, subsample=0.8955868470373529; total time= 3.1min
+[CV] END colsample_bytree=0.8669576428046754, learning_rate=0.14430289533104726, max_depth=5, n_estimators=588, reg_alpha=3.029799873905057, reg_lambda=9.299858345876816, subsample=0.8278769589256805; total time= 1.3min
+[CV] END colsample_bytree=0.9117318539947014, learning_rate=0.1715073297800619, max_depth=6, n_estimators=332, reg_alpha=0.3177917514301182, reg_lambda=3.454332056298791, subsample=0.7138141627093615; total time=  37.2s
+[CV] END colsample_bytree=0.8283227802521289, learning_rate=0.1311359195574905, max_depth=5, n_estimators=334, reg_alpha=2.3610746258097466, reg_lambda=1.636145336413866, subsample=0.8496356755280482; total time=  29.1s
+[CV] END colsample_bytree=0.5114386070348428, learning_rate=0.030499371128727845, max_depth=9, n_estimators=651, reg_alpha=3.182052056318902, reg_lambda=3.4863818202251036, subsample=0.7779997419076459; total time= 3.1min
+[CV] END colsample_bytree=0.5114386070348428, learning_rate=0.030499371128727845, max_depth=9, n_estimators=651, reg_alpha=3.182052056318902, reg_lambda=3.4863818202251036, subsample=0.7779997419076459; total time= 3.1min
+[CV] END colsample_bytree=0.9080727986955893, learning_rate=0.06170512738308071, max_depth=5, n_estimators=420, reg_alpha=4.090073829612465, reg_lambda=8.676940540935263, subsample=0.6024332456859167; total time=  45.0s
+[CV] END colsample_bytree=0.9080727986955893, learning_rate=0.06170512738308071, max_depth=5, n_estimators=420, reg_alpha=4.090073829612465, reg_lambda=8.676940540935263, subsample=0.6024332456859167; total time=  45.1s
+[CV] END colsample_bytree=0.7298362861599046, learning_rate=0.08930809059826801, max_depth=7, n_estimators=524, reg_alpha=0.599326836668414, reg_lambda=3.7073441283344657, subsample=0.9300183963693817; total time= 1.4min
+[CV] END colsample_bytree=0.7262055604529877, learning_rate=0.01978096273749798, max_depth=7, n_estimators=523, reg_alpha=4.541329429833269, reg_lambda=2.775837961336238, subsample=0.6507132052319281; total time= 1.3min
+[CV] END colsample_bytree=0.6685430534813132, learning_rate=0.19063571821788408, max_depth=6, n_estimators=371, num_leaves=80, reg_alpha=2.984250789732435, reg_lambda=4.735411152109116, subsample=0.634991220536301, subsample_freq=1; total time=  20.0s
+[CV] END colsample_bytree=0.5955525998052242, learning_rate=0.04454674376934912, max_depth=8, n_estimators=460, num_leaves=95, reg_alpha=3.0582658024414044, reg_lambda=0.5671298995873153, subsample=0.6080718487644955, subsample_freq=1; total time=  35.6s
+[CV] END colsample_bytree=0.6721078960702233, learning_rate=0.19681386830328976, max_depth=4, n_estimators=430, num_leaves=70, reg_alpha=3.4015376929388985, reg_lambda=4.779742893710658, subsample=0.6046427364059532, subsample_freq=1; total time=  15.7s
+[CV] END colsample_bytree=0.6721078960702233, learning_rate=0.19681386830328976, max_depth=4, n_estimators=430, num_leaves=70, reg_alpha=3.4015376929388985, reg_lambda=4.779742893710658, subsample=0.6046427364059532, subsample_freq=1; total time=  15.5s
+[CV] END colsample_bytree=0.9239907900581837, learning_rate=0.11702476139065246, max_depth=5, n_estimators=564, num_leaves=109, reg_alpha=0.48836057003191935, reg_lambda=7.00021375186549, subsample=0.7540533728088604, subsample_freq=1; total time=  29.2s
+[CV] END colsample_bytree=0.6913201435210601, learning_rate=0.04950891594495588, max_depth=7, n_estimators=609, num_leaves=112, reg_alpha=4.847923138822793, reg_lambda=7.863761821930588, subsample=0.9288246295474661, subsample_freq=1; total time=  44.4s
+[CV] END colsample_bytree=0.902672307692442, learning_rate=0.12360099597410618, max_depth=11, n_estimators=570, num_leaves=91, reg_alpha=2.852219872026997, reg_lambda=5.447925470245325, subsample=0.9364102085222721, subsample_freq=1; total time=  52.9s
+[CV] END colsample_bytree=0.506335920221788, learning_rate=0.047780056776872984, max_depth=11, n_estimators=462, num_leaves=54, reg_alpha=3.8563517334297286, reg_lambda=1.2034241914738584, subsample=0.7254630049904953, subsample_freq=1; total time=  38.1s
+[CV] END colsample_bytree=0.7996650604778734, learning_rate=0.12234657966446814, max_depth=9, n_estimators=334, num_leaves=84, reg_alpha=1.914634373768949, reg_lambda=9.731264906196486, subsample=0.8971198384931294, subsample_freq=1; total time=  28.7s
+[CV] END colsample_bytree=0.8247782845241929, learning_rate=0.05483713475230159, max_depth=9, n_estimators=658, num_leaves=46, reg_alpha=2.6136641469099704, reg_lambda=4.561639674406221, subsample=0.6088966943604333, subsample_freq=1; total time=  40.5s
+[CV] END colsample_bytree=0.548551142146987, learning_rate=0.015971545280479508, max_depth=10, n_estimators=540, num_leaves=71, reg_alpha=2.8163778598819182, reg_lambda=7.107402821048211, subsample=0.6487660090420565, subsample_freq=1; total time=  49.1s
+[CV] END colsample_bytree=0.7427040088620428, learning_rate=0.16341362948117188, max_depth=7, n_estimators=530, num_leaves=81, reg_alpha=0.5502596226383838, reg_lambda=2.665384044148446, subsample=0.7494877260191897, subsample_freq=1; total time=  39.8s
+[CV] END colsample_bytree=0.6212355502093346, learning_rate=0.05638384922707709, max_depth=6, n_estimators=673, num_leaves=51, reg_alpha=2.5939531087168306, reg_lambda=7.17868010950419, subsample=0.7272703608327529, subsample_freq=1; total time=  37.6s
+[CV] END colsample_bytree=0.9373019372244323, learning_rate=0.19286498603900115, max_depth=9, n_estimators=594, num_leaves=21, reg_alpha=3.56135294962221, reg_lambda=1.906825834557299, subsample=0.9492091697671297, subsample_freq=1; total time=  27.5s
+[CV] END colsample_bytree=0.5652026924410504, learning_rate=0.10299602445273696, max_depth=11, n_estimators=497, num_leaves=51, reg_alpha=2.9634836193969676, reg_lambda=1.2681066001607948, subsample=0.7293790596214915, subsample_freq=1; total time= 2.1min[CV] END C=3.7554011884736247, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.5min
+[CV] END C=4.468327528535911, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 3.9min
+[CV] END C=3.347086111390218, class_weight=None, penalty=l2, solver=lbfgs; total time= 2.1min
+[CV] END C=7.090725777960454, class_weight=None, penalty=l2, solver=lbfgs; total time= 2.0min
+[CV] END C=8.334426408004218, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.7min
+[CV] END C=0.017787658410143285, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.5min
+[CV] END C=6.126531604882809, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.9min
+[CV] END .........n_components=1, shrinkage=0.0, solver=lsqr; total time=   1.6s
+[CV] END .........n_components=1, shrinkage=0.0, solver=lsqr; total time=   1.3s
+[CV] END ........n_components=1, shrinkage=0.25, solver=lsqr; total time=   1.3s
+[CV] END ........n_components=1, shrinkage=0.25, solver=lsqr; total time=   1.2s
+[CV] END .....n_components=None, shrinkage=0.5, solver=eigen; total time=   2.1s
+[CV] END ....n_components=None, shrinkage=auto, solver=eigen; total time=   4.3s
+[CV] END ........n_components=1, shrinkage=0.5, solver=eigen; total time=   1.9s
+[CV] END .....n_components=None, shrinkage=0.0, solver=eigen; total time=   1.8s
+[CV] END ........n_components=1, shrinkage=auto, solver=lsqr; total time=   1.9s
+[CV] END colsample_bytree=0.5261376254756898, learning_rate=0.1745734676972377, max_depth=6, n_estimators=659, reg_alpha=3.540362888980227, reg_lambda=0.6955526958101232, subsample=0.939468448256698; total time= 1.1min
+[CV] END colsample_bytree=0.8745991883601898, learning_rate=0.05034443102887247, max_depth=6, n_estimators=576, reg_alpha=3.0874075481385828, reg_lambda=6.3107050246386684, subsample=0.6024732068269011; total time= 1.1min
+[CV] END colsample_bytree=0.5407728955397694, learning_rate=0.12749334177328658, max_depth=6, n_estimators=354, reg_alpha=4.916154429033941, reg_lambda=4.934247485855809, subsample=0.9009791423577121; total time=  37.2s
+[CV] END colsample_bytree=0.8061383923645009, learning_rate=0.09559485787421317, max_depth=4, n_estimators=687, reg_alpha=4.711008778424263, reg_lambda=5.851238069532624, subsample=0.7348957758889706; total time=  48.5s
+[CV] END colsample_bytree=0.5071848134990964, learning_rate=0.05386982686820831, max_depth=6, n_estimators=666, reg_alpha=3.416317594127291, reg_lambda=6.294968248934898, subsample=0.8916182191076575; total time= 1.1min
+[CV] END colsample_bytree=0.7554651475189962, learning_rate=0.01594952556655613, max_depth=4, n_estimators=517, reg_alpha=2.248770666848828, reg_lambda=4.253927242017237, subsample=0.924330603027828; total time=  59.8s
+[CV] END colsample_bytree=0.8362940495618214, learning_rate=0.11254150515392515, max_depth=4, n_estimators=516, reg_alpha=1.4046725484369038, reg_lambda=5.65561279000336, subsample=0.6493234787411669; total time= 1.0min
+[CV] END colsample_bytree=0.8362940495618214, learning_rate=0.11254150515392515, max_depth=4, n_estimators=516, reg_alpha=1.4046725484369038, reg_lambda=5.65561279000336, subsample=0.6493234787411669; total time= 1.2min
+[CV] END colsample_bytree=0.8609886413393179, learning_rate=0.024164622299156457, max_depth=9, n_estimators=308, reg_alpha=3.861223846483287, reg_lambda=2.387798974574638, subsample=0.6019327409932608; total time= 2.2min
+[CV] END colsample_bytree=0.9117318539947014, learning_rate=0.1715073297800619, max_depth=6, n_estimators=332, reg_alpha=0.3177917514301182, reg_lambda=3.454332056298791, subsample=0.7138141627093615; total time=  37.7s
+[CV] END colsample_bytree=0.8423532718776039, learning_rate=0.11664266753820428, max_depth=9, n_estimators=697, reg_alpha=2.4689779818219537, reg_lambda=5.465961879128944, subsample=0.7496393564254924; total time= 4.1min
+[CV] END colsample_bytree=0.9084049132667419, learning_rate=0.057365523538286244, max_depth=7, n_estimators=442, reg_alpha=3.7777556927152434, reg_lambda=2.6735825721704134, subsample=0.6269429684400776; total time= 1.5min
+[CV] END colsample_bytree=0.8616524346046015, learning_rate=0.04544831118834681, max_depth=8, n_estimators=630, reg_alpha=1.62172510502637, reg_lambda=1.659835569656397, subsample=0.7247042433269412; total time= 2.4min
+[CV] END colsample_bytree=0.7298362861599046, learning_rate=0.08930809059826801, max_depth=7, n_estimators=524, reg_alpha=0.599326836668414, reg_lambda=3.7073441283344657, subsample=0.9300183963693817; total time= 1.4min
+[CV] END colsample_bytree=0.7262055604529877, learning_rate=0.01978096273749798, max_depth=7, n_estimators=523, reg_alpha=4.541329429833269, reg_lambda=2.775837961336238, subsample=0.6507132052319281; total time= 1.2min
+[CV] END colsample_bytree=0.6685430534813132, learning_rate=0.19063571821788408, max_depth=6, n_estimators=371, num_leaves=80, reg_alpha=2.984250789732435, reg_lambda=4.735411152109116, subsample=0.634991220536301, subsample_freq=1; total time=  20.1s
+[CV] END colsample_bytree=0.5955525998052242, learning_rate=0.04454674376934912, max_depth=8, n_estimators=460, num_leaves=95, reg_alpha=3.0582658024414044, reg_lambda=0.5671298995873153, subsample=0.6080718487644955, subsample_freq=1; total time=  35.2s
+[CV] END colsample_bytree=0.7361485971162751, learning_rate=0.08597358462589853, max_depth=11, n_estimators=487, num_leaves=99, reg_alpha=1.1638567021515211, reg_lambda=1.3607611280617977, subsample=0.8164351032665805, subsample_freq=1; total time=  42.9s
+[CV] END colsample_bytree=0.5549172056801505, learning_rate=0.10408361292114134, max_depth=10, n_estimators=334, num_leaves=97, reg_alpha=1.955303037866204, reg_lambda=2.231242833986592, subsample=0.8643764936111783, subsample_freq=1; total time=  31.9s
+[CV] END colsample_bytree=0.902672307692442, learning_rate=0.12360099597410618, max_depth=11, n_estimators=570, num_leaves=91, reg_alpha=2.852219872026997, reg_lambda=5.447925470245325, subsample=0.9364102085222721, subsample_freq=1; total time=  52.3s
+[CV] END colsample_bytree=0.8800402319051681, learning_rate=0.1519908209261024, max_depth=10, n_estimators=352, num_leaves=43, reg_alpha=1.7837666334679465, reg_lambda=3.1688778420301174, subsample=0.789943629105387, subsample_freq=1; total time=  23.0s
+[CV] END colsample_bytree=0.5634159012386432, learning_rate=0.16241742634326756, max_depth=4, n_estimators=644, num_leaves=90, reg_alpha=2.117007403531848, reg_lambda=4.251374422667912, subsample=0.7027208611513133, subsample_freq=1; total time=  32.3s
+[CV] END colsample_bytree=0.5521410767863084, learning_rate=0.1739896509163628, max_depth=11, n_estimators=567, num_leaves=53, reg_alpha=0.47705058245205656, reg_lambda=4.02277339588353, subsample=0.8340944384322625, subsample_freq=1; total time=  41.7s
+[CV] END colsample_bytree=0.8247782845241929, learning_rate=0.05483713475230159, max_depth=9, n_estimators=658, num_leaves=46, reg_alpha=2.6136641469099704, reg_lambda=4.561639674406221, subsample=0.6088966943604333, subsample_freq=1; total time=  40.4s
+[CV] END colsample_bytree=0.548551142146987, learning_rate=0.015971545280479508, max_depth=10, n_estimators=540, num_leaves=71, reg_alpha=2.8163778598819182, reg_lambda=7.107402821048211, subsample=0.6487660090420565, subsample_freq=1; total time=  48.4s
+[CV] END colsample_bytree=0.7427040088620428, learning_rate=0.16341362948117188, max_depth=7, n_estimators=530, num_leaves=81, reg_alpha=0.5502596226383838, reg_lambda=2.665384044148446, subsample=0.7494877260191897, subsample_freq=1; total time=  39.8s
+[CV] END colsample_bytree=0.6212355502093346, learning_rate=0.05638384922707709, max_depth=6, n_estimators=673, num_leaves=51, reg_alpha=2.5939531087168306, reg_lambda=7.17868010950419, subsample=0.7272703608327529, subsample_freq=1; total time=  35.3s
+[CV] END colsample_bytree=0.9373019372244323, learning_rate=0.19286498603900115, max_depth=9, n_estimators=594, num_leaves=21, reg_alpha=3.56135294962221, reg_lambda=1.906825834557299, subsample=0.9492091697671297, subsample_freq=1; total time=  37.1s
+[CV] END colsample_bytree=0.5652026924410504, learning_rate=0.10299602445273696, max_depth=11, n_estimators=497, num_leaves=51, reg_alpha=2.9634836193969676, reg_lambda=1.2681066001607948, subsample=0.7293790596214915, subsample_freq=1; total time= 2.1min[CV] END C=1.844347898661638, class_weight=None, penalty=l2, solver=lbfgs; total time=  48.0s
+[CV] END C=1.844347898661638, class_weight=None, penalty=l2, solver=lbfgs; total time=  48.1s
+[CV] END C=5.996584841970366, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.6min
+[CV] END C=0.5908361216819946, class_weight=None, penalty=l2, solver=lbfgs; total time= 2.0min
+[CV] END C=0.5908361216819946, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.7min
+[CV] END C=3.347086111390218, class_weight=None, penalty=l2, solver=lbfgs; total time= 2.1min
+[CV] END C=0.5741157902710026, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.3min
+[CV] END C=8.334426408004218, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.8min
+[CV] END C=1.8440450985343382, class_weight=None, penalty=l2, solver=lbfgs; total time= 1.1min
+[CV] END C=6.126531604882809, class_weight={0: 0.5439098415046721, 1: 6.19348445435402}, penalty=l2, solver=lbfgs; total time= 2.7min
+[CV] END .........n_components=1, shrinkage=0.0, solver=lsqr; total time=   1.8s
+[CV] END .....n_components=None, shrinkage=auto, solver=lsqr; total time=   2.8s
+[CV] END ....n_components=None, shrinkage=0.75, solver=eigen; total time=   2.2s
+[CV] END .......n_components=1, shrinkage=auto, solver=eigen; total time=   4.4s
+[CV] END ....n_components=None, shrinkage=auto, solver=eigen; total time=   4.1s
+[CV] END .....n_components=None, shrinkage=None, solver=lsqr; total time=   1.2s
+[CV] END colsample_bytree=0.6685430534813132, learning_rate=0.19063571821788408, max_depth=5, n_estimators=371, reg_alpha=2.993292420985183, reg_lambda=1.982177084203147, subsample=0.6545980821176709; total time=  35.2s
+[CV] END colsample_bytree=0.8745991883601898, learning_rate=0.05034443102887247, max_depth=6, n_estimators=576, reg_alpha=3.0874075481385828, reg_lambda=6.3107050246386684, subsample=0.6024732068269011; total time= 1.1min
+[CV] END colsample_bytree=0.5103780912686371, learning_rate=0.10970718544909393, max_depth=9, n_estimators=469, reg_alpha=0.23332831606807714, reg_lambda=9.750677428993862, subsample=0.6814699691506064; total time= 1.7min
+[CV] END colsample_bytree=0.5071848134990964, learning_rate=0.05386982686820831, max_depth=6, n_estimators=666, reg_alpha=3.416317594127291, reg_lambda=6.294968248934898, subsample=0.8916182191076575; total time= 1.0min
+[CV] END colsample_bytree=0.5780140940784975, learning_rate=0.08430151543891574, max_depth=4, n_estimators=659, reg_alpha=3.7768070515882624, reg_lambda=4.5389808076668245, subsample=0.672779582003866; total time= 1.0min
+[CV] END colsample_bytree=0.8272723981353893, learning_rate=0.07204274607310872, max_depth=8, n_estimators=514, reg_alpha=2.6041713001291185, reg_lambda=9.631134231318816, subsample=0.8955868470373529; total time= 2.9min
+[CV] END colsample_bytree=0.8609886413393179, learning_rate=0.024164622299156457, max_depth=9, n_estimators=308, reg_alpha=3.861223846483287, reg_lambda=2.387798974574638, subsample=0.6019327409932608; total time= 2.0min
+[CV] END colsample_bytree=0.9117318539947014, learning_rate=0.1715073297800619, max_depth=6, n_estimators=332, reg_alpha=0.3177917514301182, reg_lambda=3.454332056298791, subsample=0.7138141627093615; total time=  36.6s
+[CV] END colsample_bytree=0.8423532718776039, learning_rate=0.11664266753820428, max_depth=9, n_estimators=697, reg_alpha=2.4689779818219537, reg_lambda=5.465961879128944, subsample=0.7496393564254924; total time= 4.0min
+[CV] END colsample_bytree=0.9084049132667419, learning_rate=0.057365523538286244, max_depth=7, n_estimators=442, reg_alpha=3.7777556927152434, reg_lambda=2.6735825721704134, subsample=0.6269429684400776; total time= 1.6min
+[CV] END colsample_bytree=0.6303881538111956, learning_rate=0.04063204457826084, max_depth=4, n_estimators=469, reg_alpha=4.040601897822085, reg_lambda=6.517335686849023, subsample=0.9050112065657012; total time=  47.1s
+[CV] END colsample_bytree=0.9080727986955893, learning_rate=0.06170512738308071, max_depth=5, n_estimators=420, reg_alpha=4.090073829612465, reg_lambda=8.676940540935263, subsample=0.6024332456859167; total time=  44.9s
+[CV] END colsample_bytree=0.9080727986955893, learning_rate=0.06170512738308071, max_depth=5, n_estimators=420, reg_alpha=4.090073829612465, reg_lambda=8.676940540935263, subsample=0.6024332456859167; total time=  45.9s
+[CV] END colsample_bytree=0.7298362861599046, learning_rate=0.08930809059826801, max_depth=7, n_estimators=524, reg_alpha=0.599326836668414, reg_lambda=3.7073441283344657, subsample=0.9300183963693817; total time= 1.4min
+[CV] END colsample_bytree=0.6133020331214138, learning_rate=0.10447721611955323, max_depth=3, n_estimators=400, reg_alpha=1.424202471887338, reg_lambda=0.8504259998680616, subsample=0.8133475168929638; total time=  29.8s
+[CV] END colsample_bytree=0.6685430534813132, learning_rate=0.19063571821788408, max_depth=6, n_estimators=371, num_leaves=80, reg_alpha=2.984250789732435, reg_lambda=4.735411152109116, subsample=0.634991220536301, subsample_freq=1; total time=  21.1s
+[CV] END colsample_bytree=0.5955525998052242, learning_rate=0.04454674376934912, max_depth=8, n_estimators=460, num_leaves=95, reg_alpha=3.0582658024414044, reg_lambda=0.5671298995873153, subsample=0.6080718487644955, subsample_freq=1; total time=  33.7s
+[CV] END colsample_bytree=0.7361485971162751, learning_rate=0.08597358462589853, max_depth=11, n_estimators=487, num_leaves=99, reg_alpha=1.1638567021515211, reg_lambda=1.3607611280617977, subsample=0.8164351032665805, subsample_freq=1; total time=  48.5s
+[CV] END colsample_bytree=0.5549172056801505, learning_rate=0.10408361292114134, max_depth=10, n_estimators=334, num_leaves=97, reg_alpha=1.955303037866204, reg_lambda=2.231242833986592, subsample=0.8643764936111783, subsample_freq=1; total time=  32.1s
+[CV] END colsample_bytree=0.902672307692442, learning_rate=0.12360099597410618, max_depth=11, n_estimators=570, num_leaves=91, reg_alpha=2.852219872026997, reg_lambda=5.447925470245325, subsample=0.9364102085222721, subsample_freq=1; total time= 1.1min
+[CV] END colsample_bytree=0.5634159012386432, learning_rate=0.16241742634326756, max_depth=4, n_estimators=644, num_leaves=90, reg_alpha=2.117007403531848, reg_lambda=4.251374422667912, subsample=0.7027208611513133, subsample_freq=1; total time=  31.9s
+[CV] END colsample_bytree=0.5521410767863084, learning_rate=0.1739896509163628, max_depth=11, n_estimators=567, num_leaves=53, reg_alpha=0.47705058245205656, reg_lambda=4.02277339588353, subsample=0.8340944384322625, subsample_freq=1; total time=  41.5s
+[CV] END colsample_bytree=0.7996650604778734, learning_rate=0.12234657966446814, max_depth=9, n_estimators=334, num_leaves=84, reg_alpha=1.914634373768949, reg_lambda=9.731264906196486, subsample=0.8971198384931294, subsample_freq=1; total time=  33.7s
+[CV] END colsample_bytree=0.548551142146987, learning_rate=0.015971545280479508, max_depth=10, n_estimators=540, num_leaves=71, reg_alpha=2.8163778598819182, reg_lambda=7.107402821048211, subsample=0.6487660090420565, subsample_freq=1; total time=  48.7s
+[CV] END colsample_bytree=0.918363943554158, learning_rate=0.16354287211723922, max_depth=4, n_estimators=433, num_leaves=47, reg_alpha=4.018360384495573, reg_lambda=2.2724155594173405, subsample=0.9123956494714922, subsample_freq=1; total time=  17.2s
+[CV] END colsample_bytree=0.8681066446651219, learning_rate=0.17353881081870526, max_depth=10, n_estimators=497, num_leaves=91, reg_alpha=2.6704470968772096, reg_lambda=5.1058847279103405, subsample=0.8423526115115946, subsample_freq=1; total time=  49.6s
+[CV] END colsample_bytree=0.6212355502093346, learning_rate=0.05638384922707709, max_depth=6, n_estimators=673, num_leaves=51, reg_alpha=2.5939531087168306, reg_lambda=7.17868010950419, subsample=0.7272703608327529, subsample_freq=1; total time=  34.6s
+[CV] END colsample_bytree=0.6200514564238783, learning_rate=0.19555684160820405, max_depth=7, n_estimators=353, num_leaves=106, reg_alpha=1.3932323211830573, reg_lambda=9.128525916683211, subsample=0.6838466617334403, subsample_freq=1; total time=  37.9s
+[CV] END colsample_bytree=0.5652026924410504, learning_rate=0.10299602445273696, max_depth=11, n_estimators=497, num_leaves=51, reg_alpha=2.9634836193969676, reg_lambda=1.2681066001607948, subsample=0.7293790596214915, subsample_freq=1; total time= 2.0min
+[CV] END colsample_bytree=0.6089719722248417, learning_rate=0.16259655371218024, max_depth=8, n_estimators=671, num_leaves=117, reg_alpha=3.1676485538044736, reg_lambda=5.589859498710205, subsample=0.6316014195190429, subsample_freq=1; total time=  46.2s
+
+
+[CV] END colsample_bytree=0.6200514564238783, learning_rate=0.19555684160820405, max_depth=7, n_estimators=353, num_leaves=106, reg_alpha=1.3932323211830573, reg_lambda=9.128525916683211, subsample=0.6838466617334403, subsample_freq=1; total time=  34.4s
+[CV] END colsample_bytree=0.5652026924410504, learning_rate=0.10299602445273696, max_depth=11, n_estimators=497, num_leaves=51, reg_alpha=2.9634836193969676, reg_lambda=1.2681066001607948, subsample=0.7293790596214915, subsample_freq=1; total time= 2.0min
+
+
+[CV] END colsample_bytree=0.6089719722248417, learning_rate=0.16259655371218024, max_depth=8, n_estimators=671, num_leaves=117, reg_alpha=3.1676485538044736, reg_lambda=5.589859498710205, subsample=0.6316014195190429, subsample_freq=1; total time= 1.1min
+
+[CV] END colsample_bytree=0.918363943554158, learning_rate=0.16354287211723922, max_depth=4, n_estimators=433, num_leaves=47, reg_alpha=4.018360384495573, reg_lambda=2.2724155594173405, subsample=0.9123956494714922, subsample_freq=1; total time=  21.2s
+[CV] END colsample_bytree=0.8681066446651219, learning_rate=0.17353881081870526, max_depth=10, n_estimators=497, num_leaves=91, reg_alpha=2.6704470968772096, reg_lambda=5.1058847279103405, subsample=0.8423526115115946, subsample_freq=1; total time=  59.3s
+[CV] END colsample_bytree=0.9373019372244323, learning_rate=0.19286498603900115, max_depth=9, n_estimators=594, num_leaves=21, reg_alpha=3.56135294962221, reg_lambda=1.906825834557299, subsample=0.9492091697671297, subsample_freq=1; total time=  34.3s
+[CV] END colsample_bytree=0.6200514564238783, learning_rate=0.19555684160820405, max_depth=7, n_estimators=353, num_leaves=106, reg_alpha=1.3932323211830573, reg_lambda=9.128525916683211, subsample=0.6838466617334403, subsample_freq=1; total time= 1.7min
+[CV] END colsample_bytree=0.6089719722248417, learning_rate=0.16259655371218024, max_depth=8, n_estimators=671, num_leaves=117, reg_alpha=3.1676485538044736, reg_lambda=5.589859498710205, subsample=0.6316014195190429, subsample_freq=1; total time= 1.1min
+
+[CV] END colsample_bytree=0.9373019372244323, learning_rate=0.19286498603900115, max_depth=9, n_estimators=594, num_leaves=21, reg_alpha=3.56135294962221, reg_lambda=1.906825834557299, subsample=0.9492091697671297, subsample_freq=1; total time=  29.7s
+[CV] END colsample_bytree=0.5652026924410504, learning_rate=0.10299602445273696, max_depth=11, n_estimators=497, num_leaves=51, reg_alpha=2.9634836193969676, reg_lambda=1.2681066001607948, subsample=0.7293790596214915, subsample_freq=1; total time= 2.1min
+[CV] END colsample_bytree=0.6089719722248417, learning_rate=0.16259655371218024, max_depth=8, n_estimators=671, num_leaves=117, reg_alpha=3.1676485538044736, reg_lambda=5.589859498710205, subsample=0.6316014195190429, subsample_freq=1; total time=  45.5s
+
+[CV] END colsample_bytree=0.7427040088620428, learning_rate=0.16341362948117188, max_depth=7, n_estimators=530, num_leaves=81, reg_alpha=0.5502596226383838, reg_lambda=2.665384044148446, subsample=0.7494877260191897, subsample_freq=1; total time=  35.7s
+[CV] END colsample_bytree=0.6212355502093346, learning_rate=0.05638384922707709, max_depth=6, n_estimators=673, num_leaves=51, reg_alpha=2.5939531087168306, reg_lambda=7.17868010950419, subsample=0.7272703608327529, subsample_freq=1; total time=  35.0s
+[CV] END colsample_bytree=0.9373019372244323, learning_rate=0.19286498603900115, max_depth=9, n_estimators=594, num_leaves=21, reg_alpha=3.56135294962221, reg_lambda=1.906825834557299, subsample=0.9492091697671297, subsample_freq=1; total time=  27.1s
+[CV] END colsample_bytree=0.6200514564238783, learning_rate=0.19555684160820405, max_depth=7, n_estimators=353, num_leaves=106, reg_alpha=1.3932323211830573, reg_lambda=9.128525916683211, subsample=0.6838466617334403, subsample_freq=1; total time= 1.7min
+[CV] END colsample_bytree=0.6089719722248417, learning_rate=0.16259655371218024, max_depth=8, n_estimators=671, num_leaves=117, reg_alpha=3.1676485538044736, reg_lambda=5.589859498710205, subsample=0.6316014195190429, subsample_freq=1; total time= 1.1min
